@@ -1,40 +1,2590 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>404 page</title>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Arvo'><link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHECK MENU PILIHAN KELAS XI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: lightblue;
+            margin: 0;
+            padding: 0;
+        }
 
+        .container {
+            width: 90%;
+            max-width: 400px;
+            margin: 50px auto;
+            background: linear-gradient(to bottom, navy, blue);
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .btn {
+            width: 80%;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-enter {
+            background: red;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-back {
+            background: red;
+            color: white;
+            font-weight: bold;
+        }
+
+        .result {
+            display: none;
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: blue;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<section class="page_404">
-	<div class="container">
-		<div class="row">	
-		<div class="col-sm-12 ">
-		<div class="col-sm-10 col-sm-offset-1  text-center">
-		<div class="four_zero_four_bg">
-			<h1 class="text-center ">Hello There!</h1>
-		
-		
-		</div>
-		
-		<div class="contant_box_404">
-		<h3 class="h2">
-		Look like you're too fast
-		</h3>
-		
-		<p>the page you are looking for is still under developing</p>
-		
-		<a href="" class="link_404">Go to Home</a>
-	</div>
-		</div>
-		</div>
-		</div>
-	</div>
-</section>
-<!-- partial -->
-  
+
+    <div class="container" id="searchBox">
+        <h2>CHECK PEMILIHAN MENU KELAS XI</h2>
+        <input type="text" id="nisnInput" placeholder="Enter NIS">
+        <button class="btn btn-enter" onclick="searchStudent()">ENTER</button>
+    </div>
+
+    <div class="container result" id="resultBox">
+        <h2 id="studentName"></h2>
+        <p><strong>NIS:</strong> <span id="studentNISN"></span></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>MENU</th>
+                    <th>SCORE</th>
+                    <th>RANK</th>
+                </tr>
+            </thead>
+            <tbody id="menuData"></tbody>
+        </table>
+        <button class="btn btn-back" onclick="goBack()">BACK</button>
+    </div>
+
+    <script>
+        // Sample Database (You can add more students)
+        const database = {
+            "14401": {
+name: "AARON ADRIEL PILIH CIE",
+menus: [
+{ menu: "MENU 1", score: "221.8", rank: "157" },
+{ menu: "MENU 2", score: "176", rank: "78" },
+{ menu: "MENU 3", score: "149.5", rank: "159" },
+{ menu: "MENU 4", score: "176.8", rank: "193" },
+{ menu: "MENU 5", score: "131", rank: "173" },
+]
+},
+"14402": {
+name: "ALICIA GABRIELLE LIM",
+menus: [
+{ menu: "MENU 1", score: "329.92", rank: "14" },
+{ menu: "MENU 2", score: "322", rank: "9" },
+{ menu: "MENU 3", score: "304", rank: "16" },
+{ menu: "MENU 4", score: "346.92", rank: "8" },
+{ menu: "MENU 5", score: "339", rank: "7" },
+]
+},
+"14403": {
+name: "ANDREW LIMMENA",
+menus: [
+{ menu: "MENU 1", score: "245.67", rank: "117" },
+{ menu: "MENU 2", score: "230", rank: "53" },
+{ menu: "MENU 3", score: "194.5", rank: "106" },
+{ menu: "MENU 4", score: "210.17", rank: "146" },
+{ menu: "MENU 5", score: "194.5", rank: "114" },
+]
+},
+"14404": {
+name: "AUSTIN REGINA GUNAWAN",
+menus: [
+{ menu: "MENU 1", score: "161.1", rank: "210" },
+{ menu: "MENU 2", score: "144", rank: "86" },
+{ menu: "MENU 3", score: "131", rank: "172" },
+{ menu: "MENU 4", score: "127.1", rank: "228" },
+{ menu: "MENU 5", score: "110", rank: "179" },
+]
+},
+"14405": {
+name: "BRILLIANT ALDEN CHRISTOPHER",
+menus: [
+{ menu: "MENU 1", score: "259.67", rank: "99" },
+{ menu: "MENU 2", score: "254", rank: "41" },
+{ menu: "MENU 3", score: "211", rank: "85" },
+{ menu: "MENU 4", score: "200.67", rank: "155" },
+{ menu: "MENU 5", score: "195", rank: "113" },
+]
+},
+"14406": {
+name: "CHRISTALIALIEM EVANS",
+menus: [
+{ menu: "MENU 1", score: "259.59", rank: "100" },
+{ menu: "MENU 2", score: "238", rank: "49" },
+{ menu: "MENU 3", score: "215", rank: "82" },
+{ menu: "MENU 4", score: "215.59", rank: "135" },
+{ menu: "MENU 5", score: "194", rank: "115" },
+]
+},
+"14407": {
+name: "CHRISTIAN REYNALDI",
+menus: [
+{ menu: "MENU 1", score: "235.39", rank: "136" },
+{ menu: "MENU 2", score: "222", rank: "56" },
+{ menu: "MENU 3", score: "191", rank: "111" },
+{ menu: "MENU 4", score: "190.89", rank: "166" },
+{ menu: "MENU 5", score: "177.5", rank: "131" },
+]
+},
+"14408": {
+name: "CLARISSA GRIZELLE",
+menus: [
+{ menu: "MENU 1", score: "205.27", rank: "178" },
+{ menu: "MENU 2", score: "196", rank: "69" },
+{ menu: "MENU 3", score: "174.5", rank: "130" },
+{ menu: "MENU 4", score: "186.27", rank: "179" },
+{ menu: "MENU 5", score: "177", rank: "132" },
+]
+},
+"14409": {
+name: "DEO JOVI CRISTIANO",
+menus: [
+{ menu: "MENU 1", score: "279.67", rank: "66" },
+{ menu: "MENU 2", score: "276", rank: "30" },
+{ menu: "MENU 3", score: "241", rank: "53" },
+{ menu: "MENU 4", score: "243.67", rank: "104" },
+{ menu: "MENU 5", score: "240", rank: "74" },
+]
+},
+"14410": {
+name: "EDWARD RAIN WONGSO",
+menus: [
+{ menu: "MENU 1", score: "172.86", rank: "208" },
+{ menu: "MENU 2", score: "180", rank: "76" },
+{ menu: "MENU 3", score: "160", rank: "145" },
+{ menu: "MENU 4", score: "128.36", rank: "226" },
+{ menu: "MENU 5", score: "135.5", rank: "171" },
+]
+},
+"14411": {
+name: "EVAN ALEXANDER",
+menus: [
+{ menu: "MENU 1", score: "346", rank: "3" },
+{ menu: "MENU 2", score: "342", rank: "1" },
+{ menu: "MENU 3", score: "341", rank: "2" },
+{ menu: "MENU 4", score: "363", rank: "2" },
+{ menu: "MENU 5", score: "359", rank: "1" },
+]
+},
+"14412": {
+name: "GIVEN ANDREW CHRISTIAN",
+menus: [
+{ menu: "MENU 1", score: "329.88", rank: "15" },
+{ menu: "MENU 2", score: "332", rank: "5" },
+{ menu: "MENU 3", score: "306", rank: "14" },
+{ menu: "MENU 4", score: "325.88", rank: "22" },
+{ menu: "MENU 5", score: "328", rank: "12" },
+]
+},
+"14413": {
+name: "JASMINE NAOMI PAVITA WIJAYA",
+menus: [
+{ menu: "MENU 1", score: "265.84", rank: "88" },
+{ menu: "MENU 2", score: "250", rank: "43" },
+{ menu: "MENU 3", score: "209", rank: "88" },
+{ menu: "MENU 4", score: "259.34", rank: "76" },
+{ menu: "MENU 5", score: "243.5", rank: "70" },
+]
+},
+"14414": {
+name: "JESSICA MARGARETH WAANG",
+menus: [
+{ menu: "MENU 1", score: "215.59", rank: "168" },
+{ menu: "MENU 2", score: "188", rank: "72" },
+{ menu: "MENU 3", score: "153.5", rank: "154" },
+{ menu: "MENU 4", score: "203.09", rank: "151" },
+{ menu: "MENU 5", score: "175.5", rank: "135" },
+]
+},
+"14415": {
+name: "JOSHUA MELANDRI",
+menus: [
+{ menu: "MENU 1", score: "235.76", rank: "134" },
+{ menu: "MENU 2", score: "214", rank: "60" },
+{ menu: "MENU 3", score: "190.5", rank: "112" },
+{ menu: "MENU 4", score: "243.26", rank: "105" },
+{ menu: "MENU 5", score: "221.5", rank: "91" },
+]
+},
+"14416": {
+name: "KENZO FABIO SUSANTO",
+menus: [
+{ menu: "MENU 1", score: "317.88", rank: "25" },
+{ menu: "MENU 2", score: "304", rank: "18" },
+{ menu: "MENU 3", score: "309", rank: "12" },
+{ menu: "MENU 4", score: "315.38", rank: "26" },
+{ menu: "MENU 5", score: "301.5", rank: "25" },
+]
+},
+"14417": {
+name: "LAURENT ALICIA KURNIAWAN",
+menus: [
+{ menu: "MENU 1", score: "217.27", rank: "166" },
+{ menu: "MENU 2", score: "202", rank: "66" },
+{ menu: "MENU 3", score: "181.5", rank: "120" },
+{ menu: "MENU 4", score: "170.27", rank: "197" },
+{ menu: "MENU 5", score: "155", rank: "157" },
+]
+},
+"14418": {
+name: "LEONAEL CHRISTIAN SILITONGA",
+menus: [
+{ menu: "MENU 1", score: "215.71", rank: "167" },
+{ menu: "MENU 2", score: "190", rank: "71" },
+{ menu: "MENU 3", score: "142.5", rank: "167" },
+{ menu: "MENU 4", score: "194.21", rank: "159" },
+{ menu: "MENU 5", score: "168.5", rank: "146" },
+]
+},
+"14419": {
+name: "LIONEL MARVELLIUS",
+menus: [
+{ menu: "MENU 1", score: "239.88", rank: "127" },
+{ menu: "MENU 2", score: "188", rank: "72" },
+{ menu: "MENU 3", score: "196", rank: "105" },
+{ menu: "MENU 4", score: "189.38", rank: "172" },
+{ menu: "MENU 5", score: "137.5", rank: "170" },
+]
+},
+"14420": {
+name: "M. RAFI PUTRA PAKSI",
+menus: [
+{ menu: "MENU 1", score: "189.22", rank: "196" },
+{ menu: "MENU 2", score: "164", rank: "82" },
+{ menu: "MENU 3", score: "165.5", rank: "139" },
+{ menu: "MENU 4", score: "149.72", rank: "221" },
+{ menu: "MENU 5", score: "124.5", rank: "176" },
+]
+},
+"14421": {
+name: "MARIA CHRISTA PRISCILLA",
+menus: [
+{ menu: "MENU 1", score: "299.92", rank: "44" },
+{ menu: "MENU 2", score: "286", rank: "25" },
+{ menu: "MENU 3", score: "239", rank: "56" },
+{ menu: "MENU 4", score: "248.92", rank: "93" },
+{ menu: "MENU 5", score: "235", rank: "79" },
+]
+},
+"14422": {
+name: "MARVELLINO BRANDON LEE",
+menus: [
+{ menu: "MENU 1", score: "269.92", rank: "78" },
+{ menu: "MENU 2", score: "238", rank: "49" },
+{ menu: "MENU 3", score: "216.5", rank: "81" },
+{ menu: "MENU 4", score: "211.42", rank: "141" },
+{ menu: "MENU 5", score: "179.5", rank: "130" },
+]
+},
+"14423": {
+name: "MIKE CELIANO SUTANTO",
+menus: [
+{ menu: "MENU 1", score: "217.76", rank: "163" },
+{ menu: "MENU 2", score: "180", rank: "76" },
+{ menu: "MENU 3", score: "152.5", rank: "155" },
+{ menu: "MENU 4", score: "214.76", rank: "136" },
+{ menu: "MENU 5", score: "177", rank: "132" },
+]
+},
+"14424": {
+name: "MIKHAEL FRANS PINOCI",
+menus: [
+{ menu: "MENU 1", score: "207.55", rank: "173" },
+{ menu: "MENU 2", score: "180", rank: "76" },
+{ menu: "MENU 3", score: "170", rank: "136" },
+{ menu: "MENU 4", score: "190.05", rank: "169" },
+{ menu: "MENU 5", score: "162.5", rank: "150" },
+]
+},
+"14425": {
+name: "NATHAN DERWENT CAHYADI",
+menus: [
+{ menu: "MENU 1", score: "269.8", rank: "79" },
+{ menu: "MENU 2", score: "242", rank: "47" },
+{ menu: "MENU 3", score: "217.5", rank: "79" },
+{ menu: "MENU 4", score: "222.3", rank: "124" },
+{ menu: "MENU 5", score: "194.5", rank: "114" },
+]
+},
+"14426": {
+name: "NICOLE CHRIST SETYAWAN",
+menus: [
+{ menu: "MENU 1", score: "201.39", rank: "182" },
+{ menu: "MENU 2", score: "178", rank: "77" },
+{ menu: "MENU 3", score: "164.5", rank: "140" },
+{ menu: "MENU 4", score: "158.39", rank: "213" },
+{ menu: "MENU 5", score: "135", rank: "172" },
+]
+},
+"14427": {
+name: "NOBERTUS DAVA NOVALCO",
+menus: [
+{ menu: "MENU 1", score: "259.59", rank: "100" },
+{ menu: "MENU 2", score: "250", rank: "43" },
+{ menu: "MENU 3", score: "215", rank: "82" },
+{ menu: "MENU 4", score: "191.09", rank: "165" },
+{ menu: "MENU 5", score: "181.5", rank: "128" },
+]
+},
+"14428": {
+name: "PRISKILA MAWAR JOSELYNTASA",
+menus: [
+{ menu: "MENU 1", score: "203.51", rank: "179" },
+{ menu: "MENU 2", score: "184", rank: "74" },
+{ menu: "MENU 3", score: "155.5", rank: "151" },
+{ menu: "MENU 4", score: "160.51", rank: "208" },
+{ menu: "MENU 5", score: "141", rank: "168" },
+]
+},
+"14429": {
+name: "REINA RYTZKA MENOZA",
+menus: [
+{ menu: "MENU 1", score: "243.76", rank: "119" },
+{ menu: "MENU 2", score: "220", rank: "57" },
+{ menu: "MENU 3", score: "178.5", rank: "124" },
+{ menu: "MENU 4", score: "251.76", rank: "89" },
+{ menu: "MENU 5", score: "228", rank: "85" },
+]
+},
+"14430": {
+name: "SANDRA AMELIA NOVA",
+menus: [
+{ menu: "MENU 1", score: "241.39", rank: "125" },
+{ menu: "MENU 2", score: "236", rank: "50" },
+{ menu: "MENU 3", score: "197", rank: "103" },
+{ menu: "MENU 4", score: "180.89", rank: "184" },
+{ menu: "MENU 5", score: "175.5", rank: "135" },
+]
+},
+"14431": {
+name: "STEFANUS TORAGI ELTORU",
+menus: [
+{ menu: "MENU 1", score: "223.59", rank: "154" },
+{ menu: "MENU 2", score: "208", rank: "63" },
+{ menu: "MENU 3", score: "174", rank: "131" },
+{ menu: "MENU 4", score: "196.59", rank: "158" },
+{ menu: "MENU 5", score: "181", rank: "129" },
+]
+},
+"14432": {
+name: "TESALONIKA SIMARMATA",
+menus: [
+{ menu: "MENU 1", score: "269.47", rank: "83" },
+{ menu: "MENU 2", score: "256", rank: "40" },
+{ menu: "MENU 3", score: "236", rank: "60" },
+{ menu: "MENU 4", score: "241.97", rank: "106" },
+{ menu: "MENU 5", score: "228.5", rank: "84" },
+]
+},
+"14433": {
+name: "VANESA WENNY HARYANTO",
+menus: [
+{ menu: "MENU 1", score: "247.47", rank: "115" },
+{ menu: "MENU 2", score: "252", rank: "42" },
+{ menu: "MENU 3", score: "224", rank: "75" },
+{ menu: "MENU 4", score: "224.97", rank: "122" },
+{ menu: "MENU 5", score: "229.5", rank: "82" },
+]
+},
+"14434": {
+name: "WINANDO FARHAN ECHAFRADITA",
+menus: [
+{ menu: "MENU 1", score: "199.02", rank: "188" },
+{ menu: "MENU 2", score: "220", rank: "57" },
+{ menu: "MENU 3", score: "178", rank: "125" },
+{ menu: "MENU 4", score: "124.02", rank: "229" },
+{ menu: "MENU 5", score: "145", rank: "163" },
+]
+},
+"14435": {
+name: "YOHANES FREDI AGUNG PRASETYO",
+menus: [
+{ menu: "MENU 1", score: "187.1", rank: "198" },
+{ menu: "MENU 2", score: "184", rank: "74" },
+{ menu: "MENU 3", score: "159.5", rank: "146" },
+{ menu: "MENU 4", score: "159.1", rank: "212" },
+{ menu: "MENU 5", score: "156", rank: "155" },
+]
+},
+
+"14436": {
+name: "ABEL MATEO MANIK",
+menus: [
+{ menu: "MENU 1", score: "219.47", rank: "161" },
+{ menu: "MENU 2", score: "208", rank: "63" },
+{ menu: "MENU 3", score: "176", rank: "128" },
+{ menu: "MENU 4", score: "185.47", rank: "180" },
+{ menu: "MENU 5", score: "174", rank: "138" },
+]
+},
+"14437": {
+name: "ADELINA TABHITA ERDIHAWA",
+menus: [
+{ menu: "MENU 1", score: "247.35", rank: "116" },
+{ menu: "MENU 2", score: "264", rank: "36" },
+{ menu: "MENU 3", score: "197.5", rank: "102" },
+{ menu: "MENU 4", score: "190.35", rank: "168" },
+{ menu: "MENU 5", score: "207", rank: "102" },
+]
+},
+"14438": {
+name: "ALLFIAN LIEM",
+menus: [
+{ menu: "MENU 1", score: "140.9", rank: "215" },
+{ menu: "MENU 2", score: "146", rank: "85" },
+{ menu: "MENU 3", score: "108.5", rank: "176" },
+{ menu: "MENU 4", score: "137.4", rank: "224" },
+{ menu: "MENU 5", score: "142.5", rank: "165" },
+]
+},
+"14439": {
+name: "ANGELINE IVANA PRANOTO",
+menus: [
+{ menu: "MENU 1", score: "255.59", rank: "108" },
+{ menu: "MENU 2", score: "256", rank: "40" },
+{ menu: "MENU 3", score: "223.5", rank: "76" },
+{ menu: "MENU 4", score: "214.59", rank: "137" },
+{ menu: "MENU 5", score: "215", rank: "94" },
+]
+},
+"14440": {
+name: "AUXY SHYNOMAURI ADDHARU",
+menus: [
+{ menu: "MENU 1", score: "193.47", rank: "191" },
+{ menu: "MENU 2", score: "196", rank: "69" },
+{ menu: "MENU 3", score: "147.5", rank: "162" },
+{ menu: "MENU 4", score: "190.47", rank: "167" },
+{ menu: "MENU 5", score: "193", rank: "117" },
+]
+},
+"14441": {
+name: "BRYAN CHRISTOPHER SITUNGKIR",
+menus: [
+{ menu: "MENU 1", score: "263.71", rank: "92" },
+{ menu: "MENU 2", score: "254", rank: "41" },
+{ menu: "MENU 3", score: "228", rank: "69" },
+{ menu: "MENU 4", score: "261.21", rank: "72" },
+{ menu: "MENU 5", score: "251.5", rank: "61" },
+]
+},
+"14442": {
+name: "CAYRINE AMELIA CANDRA",
+menus: [
+{ menu: "MENU 1", score: "305.71", rank: "37" },
+{ menu: "MENU 2", score: "308", rank: "16" },
+{ menu: "MENU 3", score: "302.5", rank: "17" },
+{ menu: "MENU 4", score: "326.21", rank: "21" },
+{ menu: "MENU 5", score: "328.5", rank: "11" },
+]
+},
+"14443": {
+name: "CEROLLINE WIRA WIJAYA",
+menus: [
+{ menu: "MENU 1", score: "269.76", rank: "80" },
+{ menu: "MENU 2", score: "272", rank: "32" },
+{ menu: "MENU 3", score: "227", rank: "71" },
+{ menu: "MENU 4", score: "216.76", rank: "133" },
+{ menu: "MENU 5", score: "219", rank: "92" },
+]
+},
+"14444": {
+name: "CHRISTIAN VINSENSIUS SINAGA",
+menus: [
+{ menu: "MENU 1", score: "273.88", rank: "73" },
+{ menu: "MENU 2", score: "254", rank: "41" },
+{ menu: "MENU 3", score: "227.5", rank: "70" },
+{ menu: "MENU 4", score: "298.88", rank: "39" },
+{ menu: "MENU 5", score: "279", rank: "39" },
+]
+},
+"14445": {
+name: "CLARISSA MAVELLA JAUHARI",
+menus: [
+{ menu: "MENU 1", score: "293.8", rank: "49" },
+{ menu: "MENU 2", score: "260", rank: "38" },
+{ menu: "MENU 3", score: "244", rank: "50" },
+{ menu: "MENU 4", score: "244.8", rank: "101" },
+{ menu: "MENU 5", score: "211", rank: "98" },
+]
+},
+"14446": {
+name: "DEOVANO GUNAWAN",
+menus: [
+{ menu: "MENU 1", score: "307.92", rank: "32" },
+{ menu: "MENU 2", score: "306", rank: "17" },
+{ menu: "MENU 3", score: "249.5", rank: "43" },
+{ menu: "MENU 4", score: "316.42", rank: "25" },
+{ menu: "MENU 5", score: "314.5", rank: "17" },
+]
+},
+"14447": {
+name: "EDWARD CLINTON WENAS",
+menus: [
+{ menu: "MENU 1", score: "265.8", rank: "89" },
+{ menu: "MENU 2", score: "260", rank: "38" },
+{ menu: "MENU 3", score: "208.5", rank: "89" },
+{ menu: "MENU 4", score: "254.3", rank: "82" },
+{ menu: "MENU 5", score: "248.5", rank: "64" },
+]
+},
+"14448": {
+name: "EVELYN WIDJAJANTO",
+menus: [
+{ menu: "MENU 1", score: "168.86", rank: "209" },
+{ menu: "MENU 2", score: "190", rank: "71" },
+{ menu: "MENU 3", score: "141", rank: "168" },
+{ menu: "MENU 4", score: "114.36", rank: "232" },
+{ menu: "MENU 5", score: "135.5", rank: "171" },
+]
+},
+"14449": {
+name: "FIOLIN GRACIELA",
+menus: [
+{ menu: "MENU 1", score: "259.71", rank: "98" },
+{ menu: "MENU 2", score: "250", rank: "43" },
+{ menu: "MENU 3", score: "206.5", rank: "92" },
+{ menu: "MENU 4", score: "260.71", rank: "73" },
+{ menu: "MENU 5", score: "251", rank: "62" },
+]
+},
+"14450": {
+name: "GRECIA ALDELIA",
+menus: [
+{ menu: "MENU 1", score: "183.22", rank: "201" },
+{ menu: "MENU 2", score: "180", rank: "76" },
+{ menu: "MENU 3", score: "147", rank: "163" },
+{ menu: "MENU 4", score: "138.22", rank: "223" },
+{ menu: "MENU 5", score: "135", rank: "172" },
+]
+},
+"14451": {
+name: "JASON EVAN ALEXANDER",
+menus: [
+{ menu: "MENU 1", score: "185.31", rank: "200" },
+{ menu: "MENU 2", score: "170", rank: "80" },
+{ menu: "MENU 3", score: "150", rank: "158" },
+{ menu: "MENU 4", score: "163.81", rank: "204" },
+{ menu: "MENU 5", score: "148.5", rank: "160" },
+]
+},
+"14452": {
+name: "JEVAN KLAUSS SAJOGO",
+menus: [
+{ menu: "MENU 1", score: "263.96", rank: "91" },
+{ menu: "MENU 2", score: "236", rank: "50" },
+{ menu: "MENU 3", score: "196", rank: "105" },
+{ menu: "MENU 4", score: "220.46", rank: "128" },
+{ menu: "MENU 5", score: "192.5", rank: "118" },
+]
+},
+"14453": {
+name: "JOVAN HIRO WIJAYA",
+menus: [
+{ menu: "MENU 1", score: "239.47", rank: "133" },
+{ menu: "MENU 2", score: "246", rank: "45" },
+{ menu: "MENU 3", score: "198.5", rank: "101" },
+{ menu: "MENU 4", score: "236.97", rank: "114" },
+{ menu: "MENU 5", score: "243.5", rank: "70" },
+]
+},
+"14454": {
+name: "KEANNA MADELINE IRAWAN",
+menus: [
+{ menu: "MENU 1", score: "295.92", rank: "46" },
+{ menu: "MENU 2", score: "284", rank: "26" },
+{ menu: "MENU 3", score: "230", rank: "67" },
+{ menu: "MENU 4", score: "264.42", rank: "67" },
+{ menu: "MENU 5", score: "252.5", rank: "59" },
+]
+},
+"14455": {
+name: "KEVIN JONATHAN",
+menus: [
+{ menu: "MENU 1", score: "201.14", rank: "183" },
+{ menu: "MENU 2", score: "218", rank: "58" },
+{ menu: "MENU 3", score: "174", rank: "131" },
+{ menu: "MENU 4", score: "211.14", rank: "142" },
+{ menu: "MENU 5", score: "228", rank: "85" },
+]
+},
+"14456": {
+name: "LOUIS CHRISTIAN WANG",
+menus: [
+{ menu: "MENU 1", score: "199.51", rank: "185" },
+{ menu: "MENU 2", score: "184", rank: "74" },
+{ menu: "MENU 3", score: "136.5", rank: "170" },
+{ menu: "MENU 4", score: "157.01", rank: "215" },
+{ menu: "MENU 5", score: "141.5", rank: "167" },
+]
+},
+"14457": {
+name: "M. YURENO MAHESA",
+menus: [
+{ menu: "MENU 1", score: "223.51", rank: "155" },
+{ menu: "MENU 2", score: "190", rank: "71" },
+{ menu: "MENU 3", score: "190.5", rank: "112" },
+{ menu: "MENU 4", score: "221.51", rank: "126" },
+{ menu: "MENU 5", score: "188", rank: "124" },
+]
+},
+"14458": {
+name: "MASCHERANO MIKHAEL WILLEAM",
+menus: [
+{ menu: "MENU 1", score: "223.63", rank: "153" },
+{ menu: "MENU 2", score: "198", rank: "68" },
+{ menu: "MENU 3", score: "169.5", rank: "137" },
+{ menu: "MENU 4", score: "172.13", rank: "196" },
+{ menu: "MENU 5", score: "146.5", rank: "162" },
+]
+},
+"14459": {
+name: "NATHANIA JENNIFER HARAHAP",
+menus: [
+{ menu: "MENU 1", score: "287.63", rank: "56" },
+{ menu: "MENU 2", score: "288", rank: "24" },
+{ menu: "MENU 3", score: "243.5", rank: "51" },
+{ menu: "MENU 4", score: "238.13", rank: "113" },
+{ menu: "MENU 5", score: "238.5", rank: "76" },
+]
+},
+"14460": {
+name: "PUTU MESSI ALLVARO ATMADEWA",
+menus: [
+{ menu: "MENU 1", score: "229.71", rank: "146" },
+{ menu: "MENU 2", score: "196", rank: "69" },
+{ menu: "MENU 3", score: "201.5", rank: "97" },
+{ menu: "MENU 4", score: "247.71", rank: "96" },
+{ menu: "MENU 5", score: "214", rank: "95" },
+]
+},
+"14461": {
+name: "RACHEL GRACE PALMA SIHOTANG",
+menus: [
+{ menu: "MENU 1", score: "203.1", rank: "181" },
+{ menu: "MENU 2", score: "198", rank: "68" },
+{ menu: "MENU 3", score: "193", rank: "108" },
+{ menu: "MENU 4", score: "163.6", rank: "205" },
+{ menu: "MENU 5", score: "158.5", rank: "153" },
+]
+},
+"14462": {
+name: "REYNARD ARYA DHARMA",
+menus: [
+{ menu: "MENU 1", score: "215.27", rank: "169" },
+{ menu: "MENU 2", score: "222", rank: "56" },
+{ menu: "MENU 3", score: "179.5", rank: "123" },
+{ menu: "MENU 4", score: "178.77", rank: "188" },
+{ menu: "MENU 5", score: "185.5", rank: "126" },
+]
+},
+"14463": {
+name: "SHENIKA JUNIOR IVANKA",
+menus: [
+{ menu: "MENU 1", score: "209.51", rank: "171" },
+{ menu: "MENU 2", score: "210", rank: "62" },
+{ menu: "MENU 3", score: "169", rank: "138" },
+{ menu: "MENU 4", score: "177.01", rank: "192" },
+{ menu: "MENU 5", score: "177.5", rank: "131" },
+]
+},
+"14464": {
+name: "SHEREN MONICA ANGELINE",
+menus: [
+{ menu: "MENU 1", score: "205.31", rank: "177" },
+{ menu: "MENU 2", score: "200", rank: "67" },
+{ menu: "MENU 3", score: "162.5", rank: "142" },
+{ menu: "MENU 4", score: "160.81", rank: "207" },
+{ menu: "MENU 5", score: "155.5", rank: "156" },
+]
+},
+"14465": {
+name: "STEFFI JOVIN SETIAWAN",
+menus: [
+{ menu: "MENU 1", score: "289.92", rank: "53" },
+{ menu: "MENU 2", score: "278", rank: "29" },
+{ menu: "MENU 3", score: "259", rank: "38" },
+{ menu: "MENU 4", score: "299.92", rank: "36" },
+{ menu: "MENU 5", score: "288", rank: "32" },
+]
+},
+"14466": {
+name: "THANIA GERALDINE",
+menus: [
+{ menu: "MENU 1", score: "317.96", rank: "24" },
+{ menu: "MENU 2", score: "312", rank: "14" },
+{ menu: "MENU 3", score: "305", rank: "15" },
+{ menu: "MENU 4", score: "343.46", rank: "11" },
+{ menu: "MENU 5", score: "337.5", rank: "8" },
+]
+},
+"14467": {
+name: "VANNESS QIU",
+menus: [
+{ menu: "MENU 1", score: "233.67", rank: "139" },
+{ menu: "MENU 2", score: "186", rank: "73" },
+{ menu: "MENU 3", score: "180", rank: "122" },
+{ menu: "MENU 4", score: "188.17", rank: "175" },
+{ menu: "MENU 5", score: "140.5", rank: "169" },
+]
+},
+"14468": {
+name: "WINARDO SUMIYKO",
+menus: [
+{ menu: "MENU 1", score: "233.51", rank: "141" },
+{ menu: "MENU 2", score: "234", rank: "51" },
+{ menu: "MENU 3", score: "178", rank: "125" },
+{ menu: "MENU 4", score: "205.51", rank: "149" },
+{ menu: "MENU 5", score: "206", rank: "104" },
+]
+},
+"14469": {
+name: "ZERIKO KARUNA IDAMI",
+menus: [
+{ menu: "MENU 1", score: "219.47", rank: "161" },
+{ menu: "MENU 2", score: "210", rank: "62" },
+{ menu: "MENU 3", score: "201", rank: "98" },
+{ menu: "MENU 4", score: "202.97", rank: "152" },
+{ menu: "MENU 5", score: "193.5", rank: "116" },
+]
+},
+
+
+"14470": {
+name: "ALVIN FERNANDO SITORUS",
+menus: [
+{ menu: "MENU 1", score: "209.39", rank: "172" },
+{ menu: "MENU 2", score: "192", rank: "70" },
+{ menu: "MENU 3", score: "157.5", rank: "149" },
+{ menu: "MENU 4", score: "154.89", rank: "217" },
+{ menu: "MENU 5", score: "137.5", rank: "170" },
+]
+},
+"14471": {
+name: "ANNE AURELLIA SUSANTO",
+menus: [
+{ menu: "MENU 1", score: "279.84", rank: "65" },
+{ menu: "MENU 2", score: "246", rank: "45" },
+{ menu: "MENU 3", score: "225.5", rank: "73" },
+{ menu: "MENU 4", score: "240.34", rank: "110" },
+{ menu: "MENU 5", score: "206.5", rank: "103" },
+]
+},
+"14472": {
+name: "CANDY WISELY",
+menus: [
+{ menu: "MENU 1", score: "295.84", rank: "47" },
+{ menu: "MENU 2", score: "284", rank: "26" },
+{ menu: "MENU 3", score: "231.5", rank: "64" },
+{ menu: "MENU 4", score: "263.84", rank: "68" },
+{ menu: "MENU 5", score: "252", rank: "60" },
+]
+},
+"14473": {
+name: "CHALISYA JANNYA CAHYADI",
+menus: [
+{ menu: "MENU 1", score: "239.63", rank: "131" },
+{ menu: "MENU 2", score: "206", rank: "64" },
+{ menu: "MENU 3", score: "203", rank: "96" },
+{ menu: "MENU 4", score: "249.13", rank: "92" },
+{ menu: "MENU 5", score: "215.5", rank: "93" },
+]
+},
+"14474": {
+name: "CHRISTIAN FILBERT AVARREL",
+menus: [
+{ menu: "MENU 1", score: "261.43", rank: "95" },
+{ menu: "MENU 2", score: "258", rank: "39" },
+{ menu: "MENU 3", score: "225", rank: "74" },
+{ menu: "MENU 4", score: "255.93", rank: "79" },
+{ menu: "MENU 5", score: "252.5", rank: "59" },
+]
+},
+"14475": {
+name: "CHRISTOPER APRILIO NOVENANDO EKTA",
+menus: [
+{ menu: "MENU 1", score: "231.51", rank: "144" },
+{ menu: "MENU 2", score: "212", rank: "61" },
+{ menu: "MENU 3", score: "186", rank: "117" },
+{ menu: "MENU 4", score: "184.51", rank: "182" },
+{ menu: "MENU 5", score: "165", rank: "149" },
+]
+},
+"14476": {
+name: "CHUNG SAMUEL",
+menus: [
+{ menu: "MENU 1", score: "189.8", rank: "195" },
+{ menu: "MENU 2", score: "176", rank: "78" },
+{ menu: "MENU 3", score: "130", rank: "173" },
+{ menu: "MENU 4", score: "180.3", rank: "186" },
+{ menu: "MENU 5", score: "166.5", rank: "147" },
+]
+},
+"14477": {
+name: "CORNELIUS NICHOLAS MIGUEL HANAFIE",
+menus: [
+{ menu: "MENU 1", score: "185.55", rank: "199" },
+{ menu: "MENU 2", score: "170", rank: "80" },
+{ menu: "MENU 3", score: "133", rank: "171" },
+{ menu: "MENU 4", score: "160.05", rank: "210" },
+{ menu: "MENU 5", score: "144.5", rank: "164" },
+]
+},
+"14478": {
+name: "DESTIN SURIYA KWAN",
+menus: [
+{ menu: "MENU 1", score: "239.76", rank: "130" },
+{ menu: "MENU 2", score: "238", rank: "49" },
+{ menu: "MENU 3", score: "204.5", rank: "93" },
+{ menu: "MENU 4", score: "232.26", rank: "117" },
+{ menu: "MENU 5", score: "230.5", rank: "81" },
+]
+},
+"14479": {
+name: "ELFREYA CAITLYN GUNAWAN",
+menus: [
+{ menu: "MENU 1", score: "325.96", rank: "18" },
+{ menu: "MENU 2", score: "318", rank: "11" },
+{ menu: "MENU 3", score: "283", rank: "25" },
+{ menu: "MENU 4", score: "316.96", rank: "24" },
+{ menu: "MENU 5", score: "309", rank: "22" },
+]
+},
+"14480": {
+name: "FARREL FERNANDO SETIAWAN",
+menus: [
+{ menu: "MENU 1", score: "310", rank: "30" },
+{ menu: "MENU 2", score: "313", rank: "13" },
+{ menu: "MENU 3", score: "312", rank: "8" },
+{ menu: "MENU 4", score: "303", rank: "34" },
+{ menu: "MENU 5", score: "306", rank: "23" },
+]
+},
+"14481": {
+name: "FRANSISKA LENI MARLITA",
+menus: [
+{ menu: "MENU 1", score: "196.94", rank: "189" },
+{ menu: "MENU 2", score: "218", rank: "58" },
+{ menu: "MENU 3", score: "172.5", rank: "134" },
+{ menu: "MENU 4", score: "160.44", rank: "209" },
+{ menu: "MENU 5", score: "181.5", rank: "128" },
+]
+},
+"14482": {
+name: "HANSELL KENNARD ADRYNATA",
+menus: [
+{ menu: "MENU 1", score: "233.39", rank: "142" },
+{ menu: "MENU 2", score: "226", rank: "54" },
+{ menu: "MENU 3", score: "189", rank: "114" },
+{ menu: "MENU 4", score: "188.39", rank: "174" },
+{ menu: "MENU 5", score: "181", rank: "129" },
+]
+},
+"14483": {
+name: "JEFFERSON SUTANTO",
+menus: [
+{ menu: "MENU 1", score: "245.63", rank: "118" },
+{ menu: "MENU 2", score: "234", rank: "51" },
+{ menu: "MENU 3", score: "189", rank: "114" },
+{ menu: "MENU 4", score: "225.13", rank: "121" },
+{ menu: "MENU 5", score: "213.5", rank: "96" },
+]
+},
+"14484": {
+name: "JEVELYNE PRINCESS EFFENDY",
+menus: [
+{ menu: "MENU 1", score: "267.59", rank: "86" },
+{ menu: "MENU 2", score: "250", rank: "43" },
+{ menu: "MENU 3", score: "228", rank: "69" },
+{ menu: "MENU 4", score: "239.59", rank: "111" },
+{ menu: "MENU 5", score: "222", rank: "90" },
+]
+},
+"14485": {
+name: "JOVAN KASHIRA WANGSA",
+menus: [
+{ menu: "MENU 1", score: "241.47", rank: "124" },
+{ menu: "MENU 2", score: "234", rank: "51" },
+{ menu: "MENU 3", score: "230.5", rank: "66" },
+{ menu: "MENU 4", score: "252.97", rank: "86" },
+{ menu: "MENU 5", score: "245.5", rank: "66" },
+]
+},
+"14486": {
+name: "KEIRA RICHITA LUFTI",
+menus: [
+{ menu: "MENU 1", score: "209.76", rank: "170" },
+{ menu: "MENU 2", score: "168", rank: "81" },
+{ menu: "MENU 3", score: "159.5", rank: "146" },
+{ menu: "MENU 4", score: "210.76", rank: "145" },
+{ menu: "MENU 5", score: "169", rank: "145" },
+]
+},
+"14487": {
+name: "KEYSHA ANGELIA SHALOM",
+menus: [
+{ menu: "MENU 1", score: "217.63", rank: "164" },
+{ menu: "MENU 2", score: "206", rank: "64" },
+{ menu: "MENU 3", score: "158.5", rank: "147" },
+{ menu: "MENU 4", score: "193.13", rank: "162" },
+{ menu: "MENU 5", score: "181.5", rank: "128" },
+]
+},
+"14488": {
+name: "LEVI TRYSTANDANU",
+menus: [
+{ menu: "MENU 1", score: "299.76", rank: "45" },
+{ menu: "MENU 2", score: "290", rank: "23" },
+{ menu: "MENU 3", score: "259.5", rank: "37" },
+{ menu: "MENU 4", score: "275.26", rank: "58" },
+{ menu: "MENU 5", score: "265.5", rank: "47" },
+]
+},
+"14489": {
+name: "LOUIS IMANUEL JHONSON",
+menus: [
+{ menu: "MENU 1", score: "285.88", rank: "57" },
+{ menu: "MENU 2", score: "272", rank: "32" },
+{ menu: "MENU 3", score: "227", rank: "71" },
+{ menu: "MENU 4", score: "252.88", rank: "87" },
+{ menu: "MENU 5", score: "239", rank: "75" },
+]
+},
+"14490": {
+name: "MARICK JOVAN HARLIM",
+menus: [
+{ menu: "MENU 1", score: "193.27", rank: "192" },
+{ menu: "MENU 2", score: "186", rank: "73" },
+{ menu: "MENU 3", score: "155", rank: "152" },
+{ menu: "MENU 4", score: "153.77", rank: "218" },
+{ menu: "MENU 5", score: "146.5", rank: "162" },
+]
+},
+"14491": {
+name: "MELVIN TANDOKO",
+menus: [
+{ menu: "MENU 1", score: "315.96", rank: "26" },
+{ menu: "MENU 2", score: "312", rank: "14" },
+{ menu: "MENU 3", score: "298", rank: "19" },
+{ menu: "MENU 4", score: "297.46", rank: "42" },
+{ menu: "MENU 5", score: "293.5", rank: "27" },
+]
+},
+"14492": {
+name: "MISAEL EVAN",
+menus: [
+{ menu: "MENU 1", score: "330", rank: "13" },
+{ menu: "MENU 2", score: "306", rank: "17" },
+{ menu: "MENU 3", score: "330", rank: "6" },
+{ menu: "MENU 4", score: "334", rank: "15" },
+{ menu: "MENU 5", score: "310", rank: "21" },
+]
+},
+"14493": {
+name: "NATHANIA NICOLINE LO",
+menus: [
+{ menu: "MENU 1", score: "313.96", rank: "27" },
+{ menu: "MENU 2", score: "302", rank: "19" },
+{ menu: "MENU 3", score: "298.5", rank: "18" },
+{ menu: "MENU 4", score: "300.46", rank: "35" },
+{ menu: "MENU 5", score: "288.5", rank: "31" },
+]
+},
+"14494": {
+name: "PATRICIA JOSEFINA ROSANTY",
+menus: [
+{ menu: "MENU 1", score: "315.96", rank: "26" },
+{ menu: "MENU 2", score: "308", rank: "16" },
+{ menu: "MENU 3", score: "255.5", rank: "40" },
+{ menu: "MENU 4", score: "275.96", rank: "55" },
+{ menu: "MENU 5", score: "268", rank: "45" },
+]
+},
+"14495": {
+name: "RACHEL KEONA CHEN",
+menus: [
+{ menu: "MENU 1", score: "319.96", rank: "23" },
+{ menu: "MENU 2", score: "304", rank: "18" },
+{ menu: "MENU 3", score: "267", rank: "35" },
+{ menu: "MENU 4", score: "279.96", rank: "52" },
+{ menu: "MENU 5", score: "264", rank: "49" },
+]
+},
+"14496": {
+name: "RICHIE PRATAMA WIJAYA",
+menus: [
+{ menu: "MENU 1", score: "0", rank: "218" },
+{ menu: "MENU 2", score: "0", rank: "91" },
+{ menu: "MENU 3", score: "0", rank: "180" },
+{ menu: "MENU 4", score: "0", rank: "235" },
+{ menu: "MENU 5", score: "0", rank: "182" },
+]
+},
+"14497": {
+name: "SAFIRA KUSUMA",
+menus: [
+{ menu: "MENU 1", score: "219.63", rank: "160" },
+{ menu: "MENU 2", score: "204", rank: "65" },
+{ menu: "MENU 3", score: "165.5", rank: "139" },
+{ menu: "MENU 4", score: "201.63", rank: "153" },
+{ menu: "MENU 5", score: "186", rank: "125" },
+]
+},
+"14498": {
+name: "SEBASTIAN AXEL ABIMANYU",
+menus: [
+{ menu: "MENU 1", score: "203.35", rank: "180" },
+{ menu: "MENU 2", score: "184", rank: "74" },
+{ menu: "MENU 3", score: "163.5", rank: "141" },
+{ menu: "MENU 4", score: "193.35", rank: "161" },
+{ menu: "MENU 5", score: "174", rank: "138" },
+]
+},
+"14499": {
+name: "SHERYL ESTER SIMBOLON",
+menus: [
+{ menu: "MENU 1", score: "257.88", rank: "101" },
+{ menu: "MENU 2", score: "248", rank: "44" },
+{ menu: "MENU 3", score: "199", rank: "100" },
+{ menu: "MENU 4", score: "238.88", rank: "112" },
+{ menu: "MENU 5", score: "229", rank: "83" },
+]
+},
+"14500": {
+name: "STELLA NATASYA LIE",
+menus: [
+{ menu: "MENU 1", score: "303.76", rank: "39" },
+{ menu: "MENU 2", score: "294", rank: "21" },
+{ menu: "MENU 3", score: "258.5", rank: "39" },
+{ menu: "MENU 4", score: "292.76", rank: "44" },
+{ menu: "MENU 5", score: "283", rank: "36" },
+]
+},
+"14501": {
+name: "THEO KENTARO TEGUH",
+menus: [
+{ menu: "MENU 1", score: "285.8", rank: "58" },
+{ menu: "MENU 2", score: "268", rank: "34" },
+{ menu: "MENU 3", score: "223.5", rank: "76" },
+{ menu: "MENU 4", score: "220.3", rank: "129" },
+{ menu: "MENU 5", score: "202.5", rank: "105" },
+]
+},
+"14502": {
+name: "VERONICA AURELIA",
+menus: [
+{ menu: "MENU 1", score: "191.35", rank: "194" },
+{ menu: "MENU 2", score: "176", rank: "78" },
+{ menu: "MENU 3", score: "156.5", rank: "150" },
+{ menu: "MENU 4", score: "196.85", rank: "157" },
+{ menu: "MENU 5", score: "181.5", rank: "128" },
+]
+},
+"14503": {
+name: "WINDY VALERIE RIKI",
+menus: [
+{ menu: "MENU 1", score: "285.76", rank: "59" },
+{ menu: "MENU 2", score: "284", rank: "26" },
+{ menu: "MENU 3", score: "235.5", rank: "61" },
+{ menu: "MENU 4", score: "232.26", rank: "117" },
+{ menu: "MENU 5", score: "230.5", rank: "81" },
+]
+},
+
+
+"14504": {
+name: "AGATA NATALIA SIBARANI",
+menus: [
+{ menu: "MENU 1", score: "227.35", rank: "151" },
+{ menu: "MENU 2", score: "230", rank: "53" },
+{ menu: "MENU 3", score: "187.5", rank: "115" },
+{ menu: "MENU 4", score: "166.35", rank: "202" },
+{ menu: "MENU 5", score: "169", rank: "145" },
+]
+},
+"14505": {
+name: "ANASTASIA DIAN GESTAMIARUM",
+menus: [
+{ menu: "MENU 1", score: "219.14", rank: "162" },
+{ menu: "MENU 2", score: "236", rank: "50" },
+{ menu: "MENU 3", score: "194.5", rank: "106" },
+{ menu: "MENU 4", score: "178.14", rank: "191" },
+{ menu: "MENU 5", score: "195", rank: "113" },
+]
+},
+"14506": {
+name: "ARETA CLEODORA ELYSIA S.",
+menus: [
+{ menu: "MENU 1", score: "335.96", rank: "8" },
+{ menu: "MENU 2", score: "330", rank: "6" },
+{ menu: "MENU 3", score: "295.5", rank: "21" },
+{ menu: "MENU 4", score: "310.96", rank: "28" },
+{ menu: "MENU 5", score: "305", rank: "24" },
+]
+},
+"14507": {
+name: "BENEDICT STEVE JULIVIAN",
+menus: [
+{ menu: "MENU 1", score: "269.92", rank: "78" },
+{ menu: "MENU 2", score: "246", rank: "45" },
+{ menu: "MENU 3", score: "214", rank: "84" },
+{ menu: "MENU 4", score: "247.42", rank: "97" },
+{ menu: "MENU 5", score: "223.5", rank: "89" },
+]
+},
+"14508": {
+name: "CAROLINE ERA SEVILA",
+menus: [
+{ menu: "MENU 1", score: "267.67", rank: "85" },
+{ menu: "MENU 2", score: "256", rank: "40" },
+{ menu: "MENU 3", score: "209", rank: "88" },
+{ menu: "MENU 4", score: "220.17", rank: "130" },
+{ menu: "MENU 5", score: "208.5", rank: "100" },
+]
+},
+"14509": {
+name: "CATHERINE MARQUERITE VANJANE",
+menus: [
+{ menu: "MENU 1", score: "273.76", rank: "75" },
+{ menu: "MENU 2", score: "268", rank: "34" },
+{ menu: "MENU 3", score: "208.5", rank: "89" },
+{ menu: "MENU 4", score: "198.76", rank: "156" },
+{ menu: "MENU 5", score: "193", rank: "117" },
+]
+},
+"14510": {
+name: "CHRISTIAN KURNIAWAN",
+menus: [
+{ menu: "MENU 1", score: "299.92", rank: "44" },
+{ menu: "MENU 2", score: "276", rank: "30" },
+{ menu: "MENU 3", score: "234", rank: "62" },
+{ menu: "MENU 4", score: "248.42", rank: "94" },
+{ menu: "MENU 5", score: "224.5", rank: "88" },
+]
+},
+"14511": {
+name: "CLAIRENCE WINRI SANJAYA",
+menus: [
+{ menu: "MENU 1", score: "341.96", rank: "4" },
+{ menu: "MENU 2", score: "334", rank: "4" },
+{ menu: "MENU 3", score: "336.5", rank: "3" },
+{ menu: "MENU 4", score: "342.46", rank: "12" },
+{ menu: "MENU 5", score: "334.5", rank: "10" },
+]
+},
+"14512": {
+name: "CYNTHIA KEYZIA NATARINA",
+menus: [
+{ menu: "MENU 1", score: "255.71", rank: "107" },
+{ menu: "MENU 2", score: "252", rank: "42" },
+{ menu: "MENU 3", score: "192.5", rank: "109" },
+{ menu: "MENU 4", score: "253.71", rank: "85" },
+{ menu: "MENU 5", score: "250", rank: "63" },
+]
+},
+"14513": {
+name: "DEVON SAWA JULIANSKI",
+menus: [
+{ menu: "MENU 1", score: "283.76", rank: "60" },
+{ menu: "MENU 2", score: "286", rank: "25" },
+{ menu: "MENU 3", score: "231", rank: "65" },
+{ menu: "MENU 4", score: "289.26", rank: "47" },
+{ menu: "MENU 5", score: "291.5", rank: "29" },
+]
+},
+"14514": {
+name: "ELIORA BELA DENITA",
+menus: [
+{ menu: "MENU 1", score: "329.84", rank: "16" },
+{ menu: "MENU 2", score: "328", rank: "7" },
+{ menu: "MENU 3", score: "281", rank: "26" },
+{ menu: "MENU 4", score: "306.84", rank: "31" },
+{ menu: "MENU 5", score: "305", rank: "24" },
+]
+},
+"14515": {
+name: "FEDERICA STANIA",
+menus: [
+{ menu: "MENU 1", score: "291.88", rank: "51" },
+{ menu: "MENU 2", score: "280", rank: "28" },
+{ menu: "MENU 3", score: "243", rank: "52" },
+{ menu: "MENU 4", score: "246.38", rank: "99" },
+{ menu: "MENU 5", score: "234.5", rank: "80" },
+]
+},
+"14516": {
+name: "FREDERICK BENEDICT",
+menus: [
+{ menu: "MENU 1", score: "285.76", rank: "59" },
+{ menu: "MENU 2", score: "288", rank: "24" },
+{ menu: "MENU 3", score: "230.5", rank: "66" },
+{ menu: "MENU 4", score: "276.76", rank: "54" },
+{ menu: "MENU 5", score: "279", rank: "39" },
+]
+},
+"14517": {
+name: "GILBERT HOTRI BAKKARA",
+menus: [
+{ menu: "MENU 1", score: "108.57", rank: "217" },
+{ menu: "MENU 2", score: "118", rank: "88" },
+{ menu: "MENU 3", score: "92.5", rank: "178" },
+{ menu: "MENU 4", score: "89.57", rank: "234" },
+{ menu: "MENU 5", score: "99", rank: "180" },
+]
+},
+"14518": {
+name: "I KOMANG GALIH RADITYA",
+menus: [
+{ menu: "MENU 1", score: "247.51", rank: "114" },
+{ menu: "MENU 2", score: "236", rank: "50" },
+{ menu: "MENU 3", score: "207", rank: "91" },
+{ menu: "MENU 4", score: "212.51", rank: "139" },
+{ menu: "MENU 5", score: "201", rank: "107" },
+]
+},
+"14519": {
+name: "JENI MULYAWAN",
+menus: [
+{ menu: "MENU 1", score: "279.63", rank: "67" },
+{ menu: "MENU 2", score: "282", rank: "27" },
+{ menu: "MENU 3", score: "228", rank: "69" },
+{ menu: "MENU 4", score: "246.13", rank: "100" },
+{ menu: "MENU 5", score: "248.5", rank: "64" },
+]
+},
+"14520": {
+name: "JOLIA ESTERIN",
+menus: [
+{ menu: "MENU 1", score: "295.76", rank: "48" },
+{ menu: "MENU 2", score: "294", rank: "21" },
+{ menu: "MENU 3", score: "248", rank: "45" },
+{ menu: "MENU 4", score: "261.26", rank: "71" },
+{ menu: "MENU 5", score: "259.5", rank: "53" },
+]
+},
+"14521": {
+name: "JOVAN VALENCIO",
+menus: [
+{ menu: "MENU 1", score: "187.18", rank: "197" },
+{ menu: "MENU 2", score: "180", rank: "76" },
+{ menu: "MENU 3", score: "150.5", rank: "157" },
+{ menu: "MENU 4", score: "178.18", rank: "190" },
+{ menu: "MENU 5", score: "171", rank: "142" },
+]
+},
+"14522": {
+name: "KENNY RICH HIDEAKI",
+menus: [
+{ menu: "MENU 1", score: "335.88", rank: "9" },
+{ menu: "MENU 2", score: "334", rank: "4" },
+{ menu: "MENU 3", score: "309.5", rank: "11" },
+{ menu: "MENU 4", score: "326.38", rank: "20" },
+{ menu: "MENU 5", score: "324.5", rank: "13" },
+]
+},
+"14523": {
+name: "KEZIA LISBETH HARMANTO",
+menus: [
+{ menu: "MENU 1", score: "338", rank: "6" },
+{ menu: "MENU 2", score: "330", rank: "6" },
+{ menu: "MENU 3", score: "318", rank: "7" },
+{ menu: "MENU 4", score: "344.5", rank: "9" },
+{ menu: "MENU 5", score: "336.5", rank: "9" },
+]
+},
+"14524": {
+name: "LINGGOM PRISCILA SIANTURI",
+menus: [
+{ menu: "MENU 1", score: "307.84", rank: "34" },
+{ menu: "MENU 2", score: "302", rank: "19" },
+{ menu: "MENU 3", score: "258.5", rank: "39" },
+{ menu: "MENU 4", score: "298.34", rank: "40" },
+{ menu: "MENU 5", score: "292.5", rank: "28" },
+]
+},
+"14525": {
+name: "LOUISE KAREN DELVIA LOLI",
+menus: [
+{ menu: "MENU 1", score: "239.8", rank: "129" },
+{ menu: "MENU 2", score: "222", rank: "56" },
+{ menu: "MENU 3", score: "173", rank: "133" },
+{ menu: "MENU 4", score: "213.8", rank: "138" },
+{ menu: "MENU 5", score: "196", rank: "111" },
+]
+},
+"14526": {
+name: "MARIO ARDIANTO",
+menus: [
+{ menu: "MENU 1", score: "307.8", rank: "35" },
+{ menu: "MENU 2", score: "306", rank: "17" },
+{ menu: "MENU 3", score: "245.5", rank: "48" },
+{ menu: "MENU 4", score: "289.3", rank: "46" },
+{ menu: "MENU 5", score: "287.5", rank: "33" },
+]
+},
+"14527": {
+name: "MICHAEL ALBERTUS GUNAWAN",
+menus: [
+{ menu: "MENU 1", score: "179.06", rank: "204" },
+{ menu: "MENU 2", score: "182", rank: "75" },
+{ menu: "MENU 3", score: "151", rank: "156" },
+{ menu: "MENU 4", score: "165.56", rank: "203" },
+{ menu: "MENU 5", score: "168.5", rank: "146" },
+]
+},
+"14528": {
+name: "MORENO OKTAVIO",
+menus: [
+{ menu: "MENU 1", score: "209.39", rank: "172" },
+{ menu: "MENU 2", score: "214", rank: "60" },
+{ menu: "MENU 3", score: "180", rank: "122" },
+{ menu: "MENU 4", score: "161.39", rank: "206" },
+{ menu: "MENU 5", score: "166", rank: "148" },
+]
+},
+"14529": {
+name: "NATHANIEL AUDREY KESUMA JAYA",
+menus: [
+{ menu: "MENU 1", score: "259.76", rank: "97" },
+{ menu: "MENU 2", score: "252", rank: "42" },
+{ menu: "MENU 3", score: "214.5", rank: "83" },
+{ menu: "MENU 4", score: "254.26", rank: "83" },
+{ menu: "MENU 5", score: "246.5", rank: "65" },
+]
+},
+"14530": {
+name: "PETER AXCELINO ASDI",
+menus: [
+{ menu: "MENU 1", score: "118.69", rank: "216" },
+{ menu: "MENU 2", score: "116", rank: "89" },
+{ menu: "MENU 3", score: "109", rank: "175" },
+{ menu: "MENU 4", score: "123.69", rank: "230" },
+{ menu: "MENU 5", score: "121", rank: "178" },
+]
+},
+"14531": {
+name: "RAFAEL FRANS DONLI",
+menus: [
+{ menu: "MENU 1", score: "289.76", rank: "54" },
+{ menu: "MENU 2", score: "276", rank: "30" },
+{ menu: "MENU 3", score: "254.5", rank: "41" },
+{ menu: "MENU 4", score: "286.26", rank: "48" },
+{ menu: "MENU 5", score: "272.5", rank: "43" },
+]
+},
+"14532": {
+name: "ROBERT CRISTOPER",
+menus: [
+{ menu: "MENU 1", score: "251.88", rank: "110" },
+{ menu: "MENU 2", score: "214", rank: "60" },
+{ menu: "MENU 3", score: "193", rank: "108" },
+{ menu: "MENU 4", score: "229.38", rank: "118" },
+{ menu: "MENU 5", score: "191.5", rank: "120" },
+]
+},
+"14533": {
+name: "SEIN EZRA CHANDRA WISESA",
+menus: [
+{ menu: "MENU 1", score: "323.92", rank: "21" },
+{ menu: "MENU 2", score: "318", rank: "11" },
+{ menu: "MENU 3", score: "288", rank: "22" },
+{ menu: "MENU 4", score: "330.42", rank: "18" },
+{ menu: "MENU 5", score: "324.5", rank: "13" },
+]
+},
+"14534": {
+name: "SIMON GILBERT",
+menus: [
+{ menu: "MENU 1", score: "275.8", rank: "71" },
+{ menu: "MENU 2", score: "256", rank: "40" },
+{ menu: "MENU 3", score: "236", rank: "60" },
+{ menu: "MENU 4", score: "261.3", rank: "70" },
+{ menu: "MENU 5", score: "241.5", rank: "72" },
+]
+},
+"14535": {
+name: "STEVE EVAN NATHANAEL",
+menus: [
+{ menu: "MENU 1", score: "295.76", rank: "48" },
+{ menu: "MENU 2", score: "276", rank: "30" },
+{ menu: "MENU 3", score: "238", rank: "58" },
+{ menu: "MENU 4", score: "257.26", rank: "77" },
+{ menu: "MENU 5", score: "237.5", rank: "77" },
+]
+},
+"14536": {
+name: "TIMOTHY BENNETT TUNGGONO",
+menus: [
+{ menu: "MENU 1", score: "243.76", rank: "119" },
+{ menu: "MENU 2", score: "236", rank: "50" },
+{ menu: "MENU 3", score: "226", rank: "72" },
+{ menu: "MENU 4", score: "252.76", rank: "88" },
+{ menu: "MENU 5", score: "245", rank: "67" },
+]
+},
+"14537": {
+name: "VERSEN NICO FERNANDO",
+menus: [
+{ menu: "MENU 1", score: "223.39", rank: "156" },
+{ menu: "MENU 2", score: "212", rank: "61" },
+{ menu: "MENU 3", score: "176.5", rank: "127" },
+{ menu: "MENU 4", score: "201.39", rank: "154" },
+{ menu: "MENU 5", score: "190", rank: "122" },
+]
+},
+"14538": {
+name: "WILLIAM SANJAYA LIONG",
+menus: [
+{ menu: "MENU 1", score: "175.71", rank: "206" },
+{ menu: "MENU 2", score: "108", rank: "90" },
+{ menu: "MENU 3", score: "105", rank: "177" },
+{ menu: "MENU 4", score: "143.21", rank: "222" },
+{ menu: "MENU 5", score: "75.5", rank: "181" },
+]
+},
+
+"14539": {
+name: "ALBERTUS NUGRAHA TEGAR PRADIPTA",
+menus: [
+{ menu: "MENU 1", score: "158.86", rank: "211" },
+{ menu: "MENU 2", score: "158", rank: "83" },
+{ menu: "MENU 3", score: "148.5", rank: "160" },
+{ menu: "MENU 4", score: "127.36", rank: "227" },
+{ menu: "MENU 5", score: "126.5", rank: "174" },
+]
+},
+"14540": {
+name: "ANDRE ALVARO PASEBAN",
+menus: [
+{ menu: "MENU 1", score: "285.88", rank: "57" },
+{ menu: "MENU 2", score: "268", rank: "34" },
+{ menu: "MENU 3", score: "244.5", rank: "49" },
+{ menu: "MENU 4", score: "307.38", rank: "29" },
+{ menu: "MENU 5", score: "289.5", rank: "30" },
+]
+},
+"14541": {
+name: "ARRON EMERALDO KESUMA",
+menus: [
+{ menu: "MENU 1", score: "199.18", rank: "186" },
+{ menu: "MENU 2", score: "176", rank: "78" },
+{ menu: "MENU 3", score: "172.5", rank: "134" },
+{ menu: "MENU 4", score: "167.68", rank: "199" },
+{ menu: "MENU 5", score: "144.5", rank: "164" },
+]
+},
+"14542": {
+name: "BERNICE VELONIA BRIGYTA",
+menus: [
+{ menu: "MENU 1", score: "229.59", rank: "148" },
+{ menu: "MENU 2", score: "222", rank: "56" },
+{ menu: "MENU 3", score: "170", rank: "136" },
+{ menu: "MENU 4", score: "166.59", rank: "201" },
+{ menu: "MENU 5", score: "159", rank: "152" },
+]
+},
+"14543": {
+name: "CARREN EVELYN CHARISSA",
+menus: [
+{ menu: "MENU 1", score: "229.63", rank: "147" },
+{ menu: "MENU 2", score: "218", rank: "58" },
+{ menu: "MENU 3", score: "180.5", rank: "121" },
+{ menu: "MENU 4", score: "205.63", rank: "148" },
+{ menu: "MENU 5", score: "194", rank: "115" },
+]
+},
+"14544": {
+name: "CHERYL AURELIA CHANDRA",
+menus: [
+{ menu: "MENU 1", score: "299.92", rank: "44" },
+{ menu: "MENU 2", score: "288", rank: "24" },
+{ menu: "MENU 3", score: "246.5", rank: "47" },
+{ menu: "MENU 4", score: "303.42", rank: "33" },
+{ menu: "MENU 5", score: "291.5", rank: "29" },
+]
+},
+"14545": {
+name: "CHIARA EVELYN",
+menus: [
+{ menu: "MENU 1", score: "333.92", rank: "11" },
+{ menu: "MENU 2", score: "320", rank: "10" },
+{ menu: "MENU 3", score: "285.5", rank: "24" },
+{ menu: "MENU 4", score: "327.92", rank: "19" },
+{ menu: "MENU 5", score: "314", rank: "18" },
+]
+},
+"14546": {
+name: "CHRISTIAN MARVEL SONNEVILLE",
+menus: [
+{ menu: "MENU 1", score: "148.69", rank: "214" },
+{ menu: "MENU 2", score: "176", rank: "78" },
+{ menu: "MENU 3", score: "146.5", rank: "164" },
+{ menu: "MENU 4", score: "95.69", rank: "233" },
+{ menu: "MENU 5", score: "123", rank: "177" },
+]
+},
+"14547": {
+name: "CLARA GLENDA SUSANTO",
+menus: [
+{ menu: "MENU 1", score: "275.63", rank: "72" },
+{ menu: "MENU 2", score: "272", rank: "32" },
+{ menu: "MENU 3", score: "221.5", rank: "78" },
+{ menu: "MENU 4", score: "267.63", rank: "63" },
+{ menu: "MENU 5", score: "264", rank: "49" },
+]
+},
+"14548": {
+name: "DAVE ALDRICH HOSEA",
+menus: [
+{ menu: "MENU 1", score: "257.67", rank: "103" },
+{ menu: "MENU 2", score: "246", rank: "45" },
+{ menu: "MENU 3", score: "209", rank: "88" },
+{ menu: "MENU 4", score: "257.17", rank: "78" },
+{ menu: "MENU 5", score: "245.5", rank: "66" },
+]
+},
+"14549": {
+name: "EAGANN TIMOTHY PRIBADI",
+menus: [
+{ menu: "MENU 1", score: "281.59", rank: "63" },
+{ menu: "MENU 2", score: "282", rank: "27" },
+{ menu: "MENU 3", score: "254.5", rank: "41" },
+{ menu: "MENU 4", score: "260.59", rank: "74" },
+{ menu: "MENU 5", score: "261", rank: "52" },
+]
+},
+"14550": {
+name: "ELYSIA INA TULIT LIBU KLEDEN",
+menus: [
+{ menu: "MENU 1", score: "263.71", rank: "92" },
+{ menu: "MENU 2", score: "266", rank: "35" },
+{ menu: "MENU 3", score: "208", rank: "90" },
+{ menu: "MENU 4", score: "272.21", rank: "59" },
+{ menu: "MENU 5", score: "274.5", rank: "41" },
+]
+},
+"14551": {
+name: "FELICITA SAISEVIA",
+menus: [
+{ menu: "MENU 1", score: "288", rank: "55" },
+{ menu: "MENU 2", score: "268", rank: "34" },
+{ menu: "MENU 3", score: "228", rank: "69" },
+{ menu: "MENU 4", score: "247", rank: "98" },
+{ menu: "MENU 5", score: "227", rank: "86" },
+]
+},
+"14552": {
+name: "GEORGE MICHAEL FERNANDO",
+menus: [
+{ menu: "MENU 1", score: "207.51", rank: "174" },
+{ menu: "MENU 2", score: "176", rank: "78" },
+{ menu: "MENU 3", score: "159.5", rank: "146" },
+{ menu: "MENU 4", score: "192.51", rank: "163" },
+{ menu: "MENU 5", score: "161", rank: "151" },
+]
+},
+"14553": {
+name: "JESICA ANDANI PUTRICIA",
+menus: [
+{ menu: "MENU 1", score: "221.35", rank: "158" },
+{ menu: "MENU 2", score: "216", rank: "59" },
+{ menu: "MENU 3", score: "181.5", rank: "120" },
+{ menu: "MENU 4", score: "178.85", rank: "187" },
+{ menu: "MENU 5", score: "173.5", rank: "139" },
+]
+},
+"14554": {
+name: "JONANDRA GOTAMA",
+menus: [
+{ menu: "MENU 1", score: "247.55", rank: "113" },
+{ menu: "MENU 2", score: "252", rank: "42" },
+{ menu: "MENU 3", score: "197.5", rank: "102" },
+{ menu: "MENU 4", score: "181.05", rank: "183" },
+{ menu: "MENU 5", score: "185.5", rank: "126" },
+]
+},
+"14555": {
+name: "JUAN GERALD CANGJAYA",
+menus: [
+{ menu: "MENU 1", score: "243.59", rank: "121" },
+{ menu: "MENU 2", score: "240", rank: "48" },
+{ menu: "MENU 3", score: "194", rank: "107" },
+{ menu: "MENU 4", score: "228.09", rank: "119" },
+{ menu: "MENU 5", score: "224.5", rank: "88" },
+]
+},
+"14556": {
+name: "KENSY AGNESZKA",
+menus: [
+{ menu: "MENU 1", score: "207.14", rank: "175" },
+{ menu: "MENU 2", score: "214", rank: "60" },
+{ menu: "MENU 3", score: "185", rank: "118" },
+{ menu: "MENU 4", score: "169.64", rank: "198" },
+{ menu: "MENU 5", score: "176.5", rank: "133" },
+]
+},
+"14557": {
+name: "KHISIEN CHAVIERO TIMOTHY",
+menus: [
+{ menu: "MENU 1", score: "242", rank: "122" },
+{ menu: "MENU 2", score: "230", rank: "53" },
+{ menu: "MENU 3", score: "186", rank: "117" },
+{ menu: "MENU 4", score: "211", rank: "143" },
+{ menu: "MENU 5", score: "199", rank: "109" },
+]
+},
+"14558": {
+name: "LOVITA ARTASARI",
+menus: [
+{ menu: "MENU 1", score: "321.96", rank: "22" },
+{ menu: "MENU 2", score: "296", rank: "20" },
+{ menu: "MENU 3", score: "269", rank: "34" },
+{ menu: "MENU 4", score: "339.96", rank: "13" },
+{ menu: "MENU 5", score: "314", rank: "18" },
+]
+},
+"14559": {
+name: "M. SAMUEL YOGA PRATAMA",
+menus: [
+{ menu: "MENU 1", score: "181.18", rank: "202" },
+{ menu: "MENU 2", score: "182", rank: "75" },
+{ menu: "MENU 3", score: "137", rank: "169" },
+{ menu: "MENU 4", score: "156.18", rank: "216" },
+{ menu: "MENU 5", score: "157", rank: "154" },
+]
+},
+"14560": {
+name: "MARSHA RANI ANGELINA",
+menus: [
+{ menu: "MENU 1", score: "309.88", rank: "31" },
+{ menu: "MENU 2", score: "292", rank: "22" },
+{ menu: "MENU 3", score: "238.5", rank: "57" },
+{ menu: "MENU 4", score: "299.88", rank: "37" },
+{ menu: "MENU 5", score: "282", rank: "38" },
+]
+},
+"14561": {
+name: "MICHAEL CLEVELAND WIJAYA",
+menus: [
+{ menu: "MENU 1", score: "235.67", rank: "135" },
+{ menu: "MENU 2", score: "224", rank: "55" },
+{ menu: "MENU 3", score: "177", rank: "126" },
+{ menu: "MENU 4", score: "180.67", rank: "185" },
+{ menu: "MENU 5", score: "169", rank: "145" },
+]
+},
+"14562": {
+name: "MOSES OSWALD",
+menus: [
+{ menu: "MENU 1", score: "277.8", rank: "69" },
+{ menu: "MENU 2", score: "264", rank: "36" },
+{ menu: "MENU 3", score: "245.5", rank: "48" },
+{ menu: "MENU 4", score: "299.8", rank: "38" },
+{ menu: "MENU 5", score: "286", rank: "35" },
+]
+},
+"14563": {
+name: "NICHOLAS IMANNUEL SANTOSO",
+menus: [
+{ menu: "MENU 1", score: "289.96", rank: "52" },
+{ menu: "MENU 2", score: "272", rank: "32" },
+{ menu: "MENU 3", score: "287", rank: "23" },
+{ menu: "MENU 4", score: "289.96", rank: "45" },
+{ menu: "MENU 5", score: "272", rank: "44" },
+]
+},
+"14564": {
+name: "PHELIA CAHYA FIRMAN",
+menus: [
+{ menu: "MENU 1", score: "241.76", rank: "123" },
+{ menu: "MENU 2", score: "172", rank: "79" },
+{ menu: "MENU 3", score: "196.5", rank: "104" },
+{ menu: "MENU 4", score: "244.76", rank: "102" },
+{ menu: "MENU 5", score: "175", rank: "136" },
+]
+},
+"14565": {
+name: "RAYNA LEXI RIPING",
+menus: [
+{ menu: "MENU 1", score: "293.76", rank: "50" },
+{ menu: "MENU 2", score: "286", rank: "25" },
+{ menu: "MENU 3", score: "248.5", rank: "44" },
+{ menu: "MENU 4", score: "262.76", rank: "69" },
+{ menu: "MENU 5", score: "255", rank: "57" },
+]
+},
+"14566": {
+name: "SAMMUEL JEREMY HERMANTO",
+menus: [
+{ menu: "MENU 1", score: "281.8", rank: "62" },
+{ menu: "MENU 2", score: "272", rank: "32" },
+{ menu: "MENU 3", score: "239.5", rank: "55" },
+{ menu: "MENU 4", score: "275.8", rank: "57" },
+{ menu: "MENU 5", score: "266", rank: "46" },
+]
+},
+"14567": {
+name: "SELENA AURELLIA H",
+menus: [
+{ menu: "MENU 1", score: "267.51", rank: "87" },
+{ menu: "MENU 2", score: "266", rank: "35" },
+{ menu: "MENU 3", score: "247", rank: "46" },
+{ menu: "MENU 4", score: "241.51", rank: "107" },
+{ menu: "MENU 5", score: "240", rank: "74" },
+]
+},
+"14568": {
+name: "SKOLASTIKA NARENDRA DEWI",
+menus: [
+{ menu: "MENU 1", score: "231.31", rank: "145" },
+{ menu: "MENU 2", score: "242", rank: "47" },
+{ menu: "MENU 3", score: "196", rank: "105" },
+{ menu: "MENU 4", score: "178.31", rank: "189" },
+{ menu: "MENU 5", score: "189", rank: "123" },
+]
+},
+"14569": {
+name: "STEVE MANUEL HIDAYAT",
+menus: [
+{ menu: "MENU 1", score: "263.96", rank: "91" },
+{ menu: "MENU 2", score: "246", rank: "45" },
+{ menu: "MENU 3", score: "201", rank: "98" },
+{ menu: "MENU 4", score: "210.96", rank: "144" },
+{ menu: "MENU 5", score: "193", rank: "117" },
+]
+},
+"14570": {
+name: "TYAS AMADIS KURNIAWAN",
+menus: [
+{ menu: "MENU 1", score: "279.92", rank: "64" },
+{ menu: "MENU 2", score: "262", rank: "37" },
+{ menu: "MENU 3", score: "209", rank: "88" },
+{ menu: "MENU 4", score: "216.42", rank: "134" },
+{ menu: "MENU 5", score: "198.5", rank: "110" },
+]
+},
+"14571": {
+name: "WAYAN ALDI NUGRAHA SETIAWAN",
+menus: [
+{ menu: "MENU 1", score: "192.94", rank: "193" },
+{ menu: "MENU 2", score: "208", rank: "63" },
+{ menu: "MENU 3", score: "173.5", rank: "132" },
+{ menu: "MENU 4", score: "185.44", rank: "181" },
+{ menu: "MENU 5", score: "200.5", rank: "108" },
+]
+},
+"14572": {
+name: "WILLIAM SAPUTRA ALIYANTO",
+menus: [
+{ menu: "MENU 1", score: "153.06", rank: "212" },
+{ menu: "MENU 2", score: "142", rank: "87" },
+{ menu: "MENU 3", score: "120", rank: "174" },
+{ menu: "MENU 4", score: "158.06", rank: "214" },
+{ menu: "MENU 5", score: "147", rank: "161" },
+]
+},
+"14573": {
+name: "YOANNE MARCELLINE WIJAYA",
+menus: [
+{ menu: "MENU 1", score: "269.63", rank: "82" },
+{ menu: "MENU 2", score: "264", rank: "36" },
+{ menu: "MENU 3", score: "240.5", rank: "54" },
+{ menu: "MENU 4", score: "249.63", rank: "91" },
+{ menu: "MENU 5", score: "244", rank: "69" },
+]
+},
+
+"14574": {
+name: "ANDREA CHRISTY LUKITO",
+menus: [
+{ menu: "MENU 1", score: "337.84", rank: "7" },
+{ menu: "MENU 2", score: "336", rank: "3" },
+{ menu: "MENU 3", score: "333.5", rank: "4" },
+{ menu: "MENU 4", score: "351.34", rank: "6" },
+{ menu: "MENU 5", score: "349.5", rank: "3" },
+]
+},
+"14575": {
+name: "ARYA AGRAMANIK DANUARTA",
+menus: [
+{ menu: "MENU 1", score: "241.22", rank: "126" },
+{ menu: "MENU 2", score: "238", rank: "49" },
+{ menu: "MENU 3", score: "225", rank: "74" },
+{ menu: "MENU 4", score: "191.22", rank: "164" },
+{ menu: "MENU 5", score: "188", rank: "124" },
+]
+},
+"14576": {
+name: "BLAIR LOWELL",
+menus: [
+{ menu: "MENU 1", score: "243.63", rank: "120" },
+{ menu: "MENU 2", score: "234", rank: "51" },
+{ menu: "MENU 3", score: "189.5", rank: "113" },
+{ menu: "MENU 4", score: "193.63", rank: "160" },
+{ menu: "MENU 5", score: "184", rank: "127" },
+]
+},
+"14577": {
+name: "CATHERINE GISELA SIHOTANG",
+menus: [
+{ menu: "MENU 1", score: "199.1", rank: "187" },
+{ menu: "MENU 2", score: "216", rank: "59" },
+{ menu: "MENU 3", score: "174", rank: "131" },
+{ menu: "MENU 4", score: "175.1", rank: "194" },
+{ menu: "MENU 5", score: "192", rank: "119" },
+]
+},
+"14578": {
+name: "CHERYL KEZIA FREDERICA",
+menus: [
+{ menu: "MENU 1", score: "225.67", rank: "152" },
+{ menu: "MENU 2", score: "210", rank: "62" },
+{ menu: "MENU 3", score: "154.5", rank: "153" },
+{ menu: "MENU 4", score: "188.67", rank: "173" },
+{ menu: "MENU 5", score: "173", rank: "140" },
+]
+},
+"14579": {
+name: "CHRISTIAN ELBERTH JOHANNES",
+menus: [
+{ menu: "MENU 1", score: "257.71", rank: "102" },
+{ menu: "MENU 2", score: "244", rank: "46" },
+{ menu: "MENU 3", score: "192", rank: "110" },
+{ menu: "MENU 4", score: "209.21", rank: "147" },
+{ menu: "MENU 5", score: "195.5", rank: "112" },
+]
+},
+"14580": {
+name: "CHRISTIAN RAFAEL JOJO",
+menus: [
+{ menu: "MENU 1", score: "323.96", rank: "20" },
+{ menu: "MENU 2", score: "302", rank: "19" },
+{ menu: "MENU 3", score: "311", rank: "9" },
+{ menu: "MENU 4", score: "343.96", rank: "10" },
+{ menu: "MENU 5", score: "322", rank: "14" },
+]
+},
+"14581": {
+name: "CLARA JOSEPHINE",
+menus: [
+{ menu: "MENU 1", score: "348", rank: "2" },
+{ menu: "MENU 2", score: "336", rank: "3" },
+{ menu: "MENU 3", score: "310.5", rank: "10" },
+{ menu: "MENU 4", score: "352.5", rank: "4" },
+{ menu: "MENU 5", score: "340.5", rank: "5" },
+]
+},
+"14582": {
+name: "DAVIN CUNG TERASNO",
+menus: [
+{ menu: "MENU 1", score: "233.8", rank: "138" },
+{ menu: "MENU 2", score: "224", rank: "55" },
+{ menu: "MENU 3", score: "174", rank: "131" },
+{ menu: "MENU 4", score: "220.8", rank: "127" },
+{ menu: "MENU 5", score: "211", rank: "98" },
+]
+},
+"14583": {
+name: "EDBERT IVANDER HORIANTO",
+menus: [
+{ menu: "MENU 1", score: "0", rank: "218" },
+{ menu: "MENU 2", score: "0", rank: "91" },
+{ menu: "MENU 3", score: "23", rank: "179" },
+{ menu: "MENU 4", score: "0", rank: "235" },
+{ menu: "MENU 5", score: "0", rank: "182" },
+]
+},
+"14584": {
+name: "EILEEN CALVINA",
+menus: [
+{ menu: "MENU 1", score: "227.63", rank: "150" },
+{ menu: "MENU 2", score: "210", rank: "62" },
+{ menu: "MENU 3", score: "161", rank: "144" },
+{ menu: "MENU 4", score: "211.63", rank: "140" },
+{ menu: "MENU 5", score: "194", rank: "115" },
+]
+},
+"14585": {
+name: "EMMANUEL BONNIE RAFAEL",
+menus: [
+{ menu: "MENU 1", score: "289.96", rank: "52" },
+{ menu: "MENU 2", score: "274", rank: "31" },
+{ menu: "MENU 3", score: "237", rank: "59" },
+{ menu: "MENU 4", score: "241.46", rank: "108" },
+{ menu: "MENU 5", score: "225.5", rank: "87" },
+]
+},
+"14586": {
+name: "FARAH AULIA",
+menus: [
+{ menu: "MENU 1", score: "307.92", rank: "32" },
+{ menu: "MENU 2", score: "288", rank: "24" },
+{ menu: "MENU 3", score: "249.5", rank: "43" },
+{ menu: "MENU 4", score: "306.92", rank: "30" },
+{ menu: "MENU 5", score: "287", rank: "34" },
+]
+},
+"14587": {
+name: "FERNANDO GAUTAMA FERRY",
+menus: [
+{ menu: "MENU 1", score: "273.84", rank: "74" },
+{ menu: "MENU 2", score: "260", rank: "38" },
+{ menu: "MENU 3", score: "247", rank: "46" },
+{ menu: "MENU 4", score: "275.84", rank: "56" },
+{ menu: "MENU 5", score: "262", rank: "50" },
+]
+},
+"14588": {
+name: "FLORENCE NATALIE GUNAWAN",
+menus: [
+{ menu: "MENU 1", score: "275.8", rank: "71" },
+{ menu: "MENU 2", score: "252", rank: "42" },
+{ menu: "MENU 3", score: "233.5", rank: "63" },
+{ menu: "MENU 4", score: "268.3", rank: "61" },
+{ menu: "MENU 5", score: "244.5", rank: "68" },
+]
+},
+"14589": {
+name: "GEORGIUS TANJAYA",
+menus: [
+{ menu: "MENU 1", score: "217.51", rank: "165" },
+{ menu: "MENU 2", score: "202", rank: "66" },
+{ menu: "MENU 3", score: "159.5", rank: "146" },
+{ menu: "MENU 4", score: "189.51", rank: "171" },
+{ menu: "MENU 5", score: "174", rank: "138" },
+]
+},
+"14590": {
+name: "IDA AYU GHANIA WIDIARI",
+menus: [
+{ menu: "MENU 1", score: "301.63", rank: "42" },
+{ menu: "MENU 2", score: "286", rank: "25" },
+{ menu: "MENU 3", score: "270", rank: "33" },
+{ menu: "MENU 4", score: "298.13", rank: "41" },
+{ menu: "MENU 5", score: "282.5", rank: "37" },
+]
+},
+"14591": {
+name: "JESIKA ERINA HABEAHAN",
+menus: [
+{ menu: "MENU 1", score: "257.63", rank: "104" },
+{ menu: "MENU 2", score: "252", rank: "42" },
+{ menu: "MENU 3", score: "203.5", rank: "95" },
+{ menu: "MENU 4", score: "283.13", rank: "51" },
+{ menu: "MENU 5", score: "277.5", rank: "40" },
+]
+},
+"14592": {
+name: "JONATHAN SAMUEL",
+menus: [
+{ menu: "MENU 1", score: "239.59", rank: "132" },
+{ menu: "MENU 2", score: "240", rank: "48" },
+{ menu: "MENU 3", score: "187.5", rank: "115" },
+{ menu: "MENU 4", score: "248.09", rank: "95" },
+{ menu: "MENU 5", score: "248.5", rank: "64" },
+]
+},
+"14593": {
+name: "KENT DESON LO",
+menus: [
+{ menu: "MENU 1", score: "239.84", rank: "128" },
+{ menu: "MENU 2", score: "210", rank: "62" },
+{ menu: "MENU 3", score: "183", rank: "119" },
+{ menu: "MENU 4", score: "223.84", rank: "123" },
+{ menu: "MENU 5", score: "194", rank: "115" },
+]
+},
+"14594": {
+name: "KOMANG WISNU PERMANA",
+menus: [
+{ menu: "MENU 1", score: "234", rank: "137" },
+{ menu: "MENU 2", score: "222", rank: "56" },
+{ menu: "MENU 3", score: "175.5", rank: "129" },
+{ menu: "MENU 4", score: "188", rank: "177" },
+{ menu: "MENU 5", score: "176", rank: "134" },
+]
+},
+"14595": {
+name: "LIONEL EVAN GILBERT",
+menus: [
+{ menu: "MENU 1", score: "301.76", rank: "41" },
+{ menu: "MENU 2", score: "294", rank: "21" },
+{ menu: "MENU 3", score: "266.5", rank: "36" },
+{ menu: "MENU 4", score: "319.26", rank: "23" },
+{ menu: "MENU 5", score: "311.5", rank: "20" },
+]
+},
+"14596": {
+name: "MAHESI DHARMA PUTRI",
+menus: [
+{ menu: "MENU 1", score: "311.8", rank: "29" },
+{ menu: "MENU 2", score: "306", rank: "17" },
+{ menu: "MENU 3", score: "267", rank: "35" },
+{ menu: "MENU 4", score: "294.3", rank: "43" },
+{ menu: "MENU 5", score: "288.5", rank: "31" },
+]
+},
+"14597": {
+name: "MARVEL DARREN WIBOWO",
+menus: [
+{ menu: "MENU 1", score: "199.63", rank: "184" },
+{ menu: "MENU 2", score: "204", rank: "65" },
+{ menu: "MENU 3", score: "150.5", rank: "157" },
+{ menu: "MENU 4", score: "167.13", rank: "200" },
+{ menu: "MENU 5", score: "171.5", rank: "141" },
+]
+},
+"14598": {
+name: "MICHELLE DEVAEL MARRUNG",
+menus: [
+{ menu: "MENU 1", score: "311.88", rank: "28" },
+{ menu: "MENU 2", score: "296", rank: "20" },
+{ menu: "MENU 3", score: "255.5", rank: "40" },
+{ menu: "MENU 4", score: "303.88", rank: "32" },
+{ menu: "MENU 5", score: "288", rank: "32" },
+]
+},
+"14599": {
+name: "NAOMI VERONIKA GHANI",
+menus: [
+{ menu: "MENU 1", score: "263.43", rank: "93" },
+{ menu: "MENU 2", score: "272", rank: "32" },
+{ menu: "MENU 3", score: "217", rank: "80" },
+{ menu: "MENU 4", score: "249.93", rank: "90" },
+{ menu: "MENU 5", score: "258.5", rank: "54" },
+]
+},
+"14600": {
+name: "NICHOLAS NATHANAEL WIJAYA",
+menus: [
+{ menu: "MENU 1", score: "352", rank: "1" },
+{ menu: "MENU 2", score: "340", rank: "2" },
+{ menu: "MENU 3", score: "342", rank: "1" },
+{ menu: "MENU 4", score: "367", rank: "1" },
+{ menu: "MENU 5", score: "355", rank: "2" },
+]
+},
+"14601": {
+name: "PIPIN OKTAVIANI",
+menus: [
+{ menu: "MENU 1", score: "273.51", rank: "76" },
+{ menu: "MENU 2", score: "278", rank: "29" },
+{ menu: "MENU 3", score: "223", rank: "77" },
+{ menu: "MENU 4", score: "236.01", rank: "115" },
+{ menu: "MENU 5", score: "240.5", rank: "73" },
+]
+},
+"14602": {
+name: "REFFAN YOFEMA MATURBONG'S",
+menus: [
+{ menu: "MENU 1", score: "231.71", rank: "143" },
+{ menu: "MENU 2", score: "198", rank: "68" },
+{ menu: "MENU 3", score: "173.5", rank: "132" },
+{ menu: "MENU 4", score: "204.21", rank: "150" },
+{ menu: "MENU 5", score: "170.5", rank: "143" },
+]
+},
+"14603": {
+name: "SAMUEL MATTHEW",
+menus: [
+{ menu: "MENU 1", score: "299.96", rank: "43" },
+{ menu: "MENU 2", score: "284", rank: "26" },
+{ menu: "MENU 3", score: "272", rank: "31" },
+{ menu: "MENU 4", score: "266.96", rank: "64" },
+{ menu: "MENU 5", score: "251", rank: "62" },
+]
+},
+"14604": {
+name: "SHANICE CLAIRINE SUSANTO",
+menus: [
+{ menu: "MENU 1", score: "205.55", rank: "176" },
+{ menu: "MENU 2", score: "184", rank: "74" },
+{ menu: "MENU 3", score: "148", rank: "161" },
+{ menu: "MENU 4", score: "175.05", rank: "195" },
+{ menu: "MENU 5", score: "153.5", rank: "158" },
+]
+},
+"14605": {
+name: "STANLEY MARCELLINUS SUHERMAN",
+menus: [
+{ menu: "MENU 1", score: "255.84", rank: "105" },
+{ menu: "MENU 2", score: "244", rank: "46" },
+{ menu: "MENU 3", score: "224", rank: "75" },
+{ menu: "MENU 4", score: "255.84", rank: "80" },
+{ menu: "MENU 5", score: "244", rank: "69" },
+]
+},
+"14606": {
+name: "STEVEN SAHAT BASTIAN SIHOMBING",
+menus: [
+{ menu: "MENU 1", score: "172.98", rank: "207" },
+{ menu: "MENU 2", score: "182", rank: "75" },
+{ menu: "MENU 3", score: "146.5", rank: "164" },
+{ menu: "MENU 4", score: "132.98", rank: "225" },
+{ menu: "MENU 5", score: "142", rank: "166" },
+]
+},
+"14607": {
+name: "VALERIA JANE HENDRIK",
+menus: [
+{ menu: "MENU 1", score: "267.76", rank: "84" },
+{ menu: "MENU 2", score: "260", rank: "38" },
+{ menu: "MENU 3", score: "210", rank: "87" },
+{ menu: "MENU 4", score: "243.76", rank: "103" },
+{ menu: "MENU 5", score: "236", rank: "78" },
+]
+},
+"14608": {
+name: "YOCELYN CLARA DEVIKA",
+menus: [
+{ menu: "MENU 1", score: "333.96", rank: "10" },
+{ menu: "MENU 2", score: "328", rank: "7" },
+{ menu: "MENU 3", score: "311", rank: "9" },
+{ menu: "MENU 4", score: "342.46", rank: "12" },
+{ menu: "MENU 5", score: "336.5", rank: "9" },
+]
+},
+
+"14609": {
+name: "ALEXANDRA NATASHA",
+menus: [
+{ menu: "MENU 1", score: "304", rank: "38" },
+{ menu: "MENU 2", score: "288", rank: "24" },
+{ menu: "MENU 3", score: "239", rank: "56" },
+{ menu: "MENU 4", score: "277.5", rank: "53" },
+{ menu: "MENU 5", score: "261.5", rank: "51" },
+]
+},
+"14610": {
+name: "AURELLIA ZIVVA HERMANTO",
+menus: [
+{ menu: "MENU 1", score: "265.55", rank: "90" },
+{ menu: "MENU 2", score: "268", rank: "34" },
+{ menu: "MENU 3", score: "210.5", rank: "86" },
+{ menu: "MENU 4", score: "254.05", rank: "84" },
+{ menu: "MENU 5", score: "256.5", rank: "55" },
+]
+},
+"14611": {
+name: "BRIGHITA HARVENIA MANIK",
+menus: [
+{ menu: "MENU 1", score: "293.76", rank: "50" },
+{ menu: "MENU 2", score: "282", rank: "27" },
+{ menu: "MENU 3", score: "241", rank: "53" },
+{ menu: "MENU 4", score: "284.76", rank: "49" },
+{ menu: "MENU 5", score: "273", rank: "42" },
+]
+},
+"14612": {
+name: "CHRISTIAN RENALDO",
+menus: [
+{ menu: "MENU 1", score: "271.88", rank: "77" },
+{ menu: "MENU 2", score: "248", rank: "44" },
+{ menu: "MENU 3", score: "223", rank: "77" },
+{ menu: "MENU 4", score: "233.38", rank: "116" },
+{ menu: "MENU 5", score: "209.5", rank: "99" },
+]
+},
+"14613": {
+name: "CLARINTA YOCELYN FARICA",
+menus: [
+{ menu: "MENU 1", score: "219.67", rank: "159" },
+{ menu: "MENU 2", score: "200", rank: "67" },
+{ menu: "MENU 3", score: "171", rank: "135" },
+{ menu: "MENU 4", score: "210.17", rank: "146" },
+{ menu: "MENU 5", score: "190.5", rank: "121" },
+]
+},
+"14614": {
+name: "DENNIS ADRIAN TRIANTORO",
+menus: [
+{ menu: "MENU 1", score: "151.02", rank: "213" },
+{ menu: "MENU 2", score: "148", rank: "84" },
+{ menu: "MENU 3", score: "120", rank: "174" },
+{ menu: "MENU 4", score: "153.52", rank: "219" },
+{ menu: "MENU 5", score: "150.5", rank: "159" },
+]
+},
+"14615": {
+name: "EUNIQE SHALLOM HADINO",
+menus: [
+{ menu: "MENU 1", score: "306", rank: "36" },
+{ menu: "MENU 2", score: "286", rank: "25" },
+{ menu: "MENU 3", score: "278.5", rank: "28" },
+{ menu: "MENU 4", score: "333", rank: "17" },
+{ menu: "MENU 5", score: "313", rank: "19" },
+]
+},
+"14616": {
+name: "FILBERT DEVIN LIE",
+menus: [
+{ menu: "MENU 1", score: "203.51", rank: "179" },
+{ menu: "MENU 2", score: "192", rank: "70" },
+{ menu: "MENU 3", score: "143", rank: "166" },
+{ menu: "MENU 4", score: "186.51", rank: "178" },
+{ menu: "MENU 5", score: "175", rank: "136" },
+]
+},
+"14617": {
+name: "GISELLA ARLENE MAHESWARI",
+menus: [
+{ menu: "MENU 1", score: "325.88", rank: "19" },
+{ menu: "MENU 2", score: "310", rank: "15" },
+{ menu: "MENU 3", score: "287", rank: "23" },
+{ menu: "MENU 4", score: "313.88", rank: "27" },
+{ menu: "MENU 5", score: "298", rank: "26" },
+]
+},
+"14618": {
+name: "I PUTU AWIDIYA ANGGARA PUTRA",
+menus: [
+{ menu: "MENU 1", score: "179.02", rank: "205" },
+{ menu: "MENU 2", score: "186", rank: "73" },
+{ menu: "MENU 3", score: "158", rank: "148" },
+{ menu: "MENU 4", score: "150.02", rank: "220" },
+{ menu: "MENU 5", score: "157", rank: "154" },
+]
+},
+"14619": {
+name: "IMMANUEL ANDREWSON",
+menus: [
+{ menu: "MENU 1", score: "283.71", rank: "61" },
+{ menu: "MENU 2", score: "280", rank: "28" },
+{ menu: "MENU 3", score: "253", rank: "42" },
+{ menu: "MENU 4", score: "268.71", rank: "60" },
+{ menu: "MENU 5", score: "265", rank: "48" },
+]
+},
+"14620": {
+name: "JESSEN LIM",
+menus: [
+{ menu: "MENU 1", score: "277.67", rank: "70" },
+{ menu: "MENU 2", score: "266", rank: "35" },
+{ menu: "MENU 3", score: "246.5", rank: "47" },
+{ menu: "MENU 4", score: "284.67", rank: "50" },
+{ menu: "MENU 5", score: "273", rank: "42" },
+]
+},
+"14621": {
+name: "JORDAN XAVIER CAHAYA",
+menus: [
+{ menu: "MENU 1", score: "277.88", rank: "68" },
+{ menu: "MENU 2", score: "264", rank: "36" },
+{ menu: "MENU 3", score: "244", rank: "50" },
+{ menu: "MENU 4", score: "266.38", rank: "65" },
+{ menu: "MENU 5", score: "252.5", rank: "59" },
+]
+},
+"14622": {
+name: "JUAN TIMOTHY CHENDRA",
+menus: [
+{ menu: "MENU 1", score: "257.67", rank: "103" },
+{ menu: "MENU 2", score: "254", rank: "41" },
+{ menu: "MENU 3", score: "204", rank: "94" },
+{ menu: "MENU 4", score: "225.17", rank: "120" },
+{ menu: "MENU 5", score: "221.5", rank: "91" },
+]
+},
+"14623": {
+name: "KANIA TIRZA SIAUTTHARA",
+menus: [
+{ menu: "MENU 1", score: "0", rank: "218" },
+{ menu: "MENU 2", score: "0", rank: "91" },
+{ menu: "MENU 3", score: "0", rank: "180" },
+{ menu: "MENU 4", score: "0", rank: "235" },
+{ menu: "MENU 5", score: "0", rank: "182" },
+]
+},
+"14624": {
+name: "KATELYN OLIVIA LAIMENA",
+menus: [
+{ menu: "MENU 1", score: "317.96", rank: "24" },
+{ menu: "MENU 2", score: "304", rank: "18" },
+{ menu: "MENU 3", score: "280", rank: "27" },
+{ menu: "MENU 4", score: "333.96", rank: "16" },
+{ menu: "MENU 5", score: "320", rank: "16" },
+]
+},
+"14625": {
+name: "KENZIE UBERTO SELINDRA",
+menus: [
+{ menu: "MENU 1", score: "327.92", rank: "17" },
+{ menu: "MENU 2", score: "316", rank: "12" },
+{ menu: "MENU 3", score: "307", rank: "13" },
+{ menu: "MENU 4", score: "348.42", rank: "7" },
+{ menu: "MENU 5", score: "336.5", rank: "9" },
+]
+},
+"14626": {
+name: "LAURA CORNELIA EDGINA",
+menus: [
+{ menu: "MENU 1", score: "269.71", rank: "81" },
+{ menu: "MENU 2", score: "258", rank: "39" },
+{ menu: "MENU 3", score: "234", rank: "62" },
+{ menu: "MENU 4", score: "267.71", rank: "62" },
+{ menu: "MENU 5", score: "256", rank: "56" },
+]
+},
+"14627": {
+name: "LIONEL MARCELLO",
+menus: [
+{ menu: "MENU 1", score: "249.8", rank: "112" },
+{ menu: "MENU 2", score: "220", rank: "57" },
+{ menu: "MENU 3", score: "200", rank: "99" },
+{ menu: "MENU 4", score: "244.8", rank: "101" },
+{ menu: "MENU 5", score: "215", rank: "94" },
+]
+},
+"14628": {
+name: "MARCEL JONATHAN FEBRIANO",
+menus: [
+{ menu: "MENU 1", score: "233.63", rank: "140" },
+{ menu: "MENU 2", score: "230", rank: "53" },
+{ menu: "MENU 3", score: "177", rank: "126" },
+{ menu: "MENU 4", score: "211.63", rank: "140" },
+{ menu: "MENU 5", score: "208", rank: "101" },
+]
+},
+"14629": {
+name: "MARISYA GOTAMI KRISNIASYARI",
+menus: [
+{ menu: "MENU 1", score: "253.8", rank: "109" },
+{ menu: "MENU 2", score: "240", rank: "48" },
+{ menu: "MENU 3", score: "186.5", rank: "116" },
+{ menu: "MENU 4", score: "240.8", rank: "109" },
+{ menu: "MENU 5", score: "227", rank: "86" },
+]
+},
+"14630": {
+name: "MARVEL KARUNA KWEE",
+menus: [
+{ menu: "MENU 1", score: "295.76", rank: "48" },
+{ menu: "MENU 2", score: "292", rank: "22" },
+{ menu: "MENU 3", score: "278", rank: "29" },
+{ menu: "MENU 4", score: "265.26", rank: "66" },
+{ menu: "MENU 5", score: "261.5", rank: "51" },
+]
+},
+"14631": {
+name: "MICHELLE KANANI ROBERT",
+menus: [
+{ menu: "MENU 1", score: "251.63", rank: "111" },
+{ menu: "MENU 2", score: "238", rank: "49" },
+{ menu: "MENU 3", score: "197.5", rank: "102" },
+{ menu: "MENU 4", score: "188.13", rank: "176" },
+{ menu: "MENU 5", score: "174.5", rank: "137" },
+]
+},
+"14632": {
+name: "NATASHA CHRISTIE HARTONO",
+menus: [
+{ menu: "MENU 1", score: "340", rank: "5" },
+{ menu: "MENU 2", score: "324", rank: "8" },
+{ menu: "MENU 3", score: "297.5", rank: "20" },
+{ menu: "MENU 4", score: "352.5", rank: "4" },
+{ menu: "MENU 5", score: "336.5", rank: "9" },
+]
+},
+"14633": {
+name: "NICHOLAS NIGAN",
+menus: [
+{ menu: "MENU 1", score: "307.88", rank: "33" },
+{ menu: "MENU 2", score: "296", rank: "20" },
+{ menu: "MENU 3", score: "276.5", rank: "30" },
+{ menu: "MENU 4", score: "358.38", rank: "3" },
+{ menu: "MENU 5", score: "346.5", rank: "4" },
+]
+},
+"14634": {
+name: "PRINCESSA LOVELY ANFI ZAKARIA",
+menus: [
+{ menu: "MENU 1", score: "239.47", rank: "133" },
+{ menu: "MENU 2", score: "232", rank: "52" },
+{ menu: "MENU 3", score: "191", rank: "111" },
+{ menu: "MENU 4", score: "218.97", rank: "132" },
+{ menu: "MENU 5", score: "211.5", rank: "97" },
+]
+},
+"14635": {
+name: "REGINA FORTUNATA LEONARD",
+menus: [
+{ menu: "MENU 1", score: "255.8", rank: "106" },
+{ menu: "MENU 2", score: "244", rank: "46" },
+{ menu: "MENU 3", score: "191", rank: "111" },
+{ menu: "MENU 4", score: "254.8", rank: "81" },
+{ menu: "MENU 5", score: "243", rank: "71" },
+]
+},
+"14636": {
+name: "SAMUEL NATHAN CAHYADI",
+menus: [
+{ menu: "MENU 1", score: "259.84", rank: "96" },
+{ menu: "MENU 2", score: "242", rank: "47" },
+{ menu: "MENU 3", score: "210.5", rank: "86" },
+{ menu: "MENU 4", score: "219.34", rank: "131" },
+{ menu: "MENU 5", score: "201.5", rank: "106" },
+]
+},
+"14637": {
+name: "STEFANUS MARVEL DWI PUTRA",
+menus: [
+{ menu: "MENU 1", score: "333.88", rank: "12" },
+{ menu: "MENU 2", score: "322", rank: "9" },
+{ menu: "MENU 3", score: "332.5", rank: "5" },
+{ menu: "MENU 4", score: "351.88", rank: "5" },
+{ menu: "MENU 5", score: "340", rank: "6" },
+]
+},
+"14638": {
+name: "STEVEN BRAINNERLY HARYANTO",
+menus: [
+{ menu: "MENU 1", score: "195.27", rank: "190" },
+{ menu: "MENU 2", score: "206", rank: "64" },
+{ menu: "MENU 3", score: "162", rank: "143" },
+{ menu: "MENU 4", score: "159.27", rank: "211" },
+{ menu: "MENU 5", score: "170", rank: "144" },
+]
+},
+"14639": {
+name: "VALERIA JASMIN",
+menus: [
+{ menu: "MENU 1", score: "275.63", rank: "72" },
+{ menu: "MENU 2", score: "270", rank: "33" },
+{ menu: "MENU 3", score: "229", rank: "68" },
+{ menu: "MENU 4", score: "260.13", rank: "75" },
+{ menu: "MENU 5", score: "254.5", rank: "58" },
+]
+},
+"14640": {
+name: "WILLIAM WIRANATA",
+menus: [
+{ menu: "MENU 1", score: "301.92", rank: "40" },
+{ menu: "MENU 2", score: "286", rank: "25" },
+{ menu: "MENU 3", score: "271", rank: "32" },
+{ menu: "MENU 4", score: "337.42", rank: "14" },
+{ menu: "MENU 5", score: "321.5", rank: "15" },
+]
+},
+"14641": {
+name: "YEHUDA KRISTIAN SUSANTO",
+menus: [
+{ menu: "MENU 1", score: "181.1", rank: "203" },
+{ menu: "MENU 2", score: "186", rank: "73" },
+{ menu: "MENU 3", score: "143.5", rank: "165" },
+{ menu: "MENU 4", score: "120.1", rank: "231" },
+{ menu: "MENU 5", score: "125", rank: "175" },
+]
+},
+"14642": {
+name: "YOHANES ANDRE KRISTIAN",
+menus: [
+{ menu: "MENU 1", score: "229.43", rank: "149" },
+{ menu: "MENU 2", score: "230", rank: "53" },
+{ menu: "MENU 3", score: "183", rank: "119" },
+{ menu: "MENU 4", score: "189.93", rank: "170" },
+{ menu: "MENU 5", score: "190.5", rank: "121" },
+]
+},
+"14643": {
+name: "YOSUA GLORY RIO P.",
+menus: [
+{ menu: "MENU 1", score: "261.59", rank: "94" },
+{ menu: "MENU 2", score: "254", rank: "41" },
+{ menu: "MENU 3", score: "217", rank: "80" },
+{ menu: "MENU 4", score: "221.59", rank: "125" },
+{ menu: "MENU 5", score: "214", rank: "95" },
+]
+}
+        };
+
+        function searchStudent() {
+            const nisn = document.getElementById("nisnInput").value.trim();
+            if (database[nisn]) {
+                document.getElementById("studentName").innerText = database[nisn].name;
+                document.getElementById("studentNISN").innerText = nisn;
+
+                let menuHTML = "";
+                database[nisn].menus.forEach(menu => {
+                    menuHTML += `<tr>
+                                    <td>${menu.menu}</td>
+                                    <td>${menu.score}</td>
+                                    <td>${menu.rank}</td>
+                                 </tr>`;
+                });
+
+                document.getElementById("menuData").innerHTML = menuHTML;
+                document.getElementById("searchBox").style.display = "none";
+                document.getElementById("resultBox").style.display = "block";
+            } else {
+                alert("NISN not found!");
+            }
+        }
+
+        function goBack() {
+            document.getElementById("resultBox").style.display = "none";
+            document.getElementById("searchBox").style.display = "block";
+            document.getElementById("nisnInput").value = "";
+        }
+    </script>
+
 </body>
 </html>
