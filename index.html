@@ -87,19 +87,24 @@
             background-color: blue;
             color: white;
         }
+
+        .min-score {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container" id="searchBox">
         <h2>CHECK PEMILIHAN MENU KELAS XI</h2>
-        <input type="text" id="nisnInput" placeholder="Enter NIS">
+        <input type="text" id="nisInput" placeholder="Enter nis">
         <button class="btn btn-enter" onclick="searchStudent()">ENTER</button>
     </div>
 
     <div class="container result" id="resultBox">
         <h2 id="studentName"></h2>
-        <p><strong>NIS:</strong> <span id="studentNISN"></span></p>
+        <p><strong>nis:</strong> <span id="studentnis"></span></p>
+        
         <table>
             <thead>
                 <tr>
@@ -110,6 +115,21 @@
             </thead>
             <tbody id="menuData"></tbody>
         </table>
+
+        <!-- Minimum Score Section -->
+        <div class="min-score">
+            <h3>Minimum Score per Menu</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>MENU</th>
+                        <th>MIN SCORE</th>
+                    </tr>
+                </thead>
+                <tbody id="minScoreData"></tbody>
+            </table>
+        </div>
+
         <button class="btn btn-back" onclick="goBack()">BACK</button>
     </div>
 
@@ -2556,14 +2576,23 @@ menus: [
 }
         };
 
+        // Minimum Score Data
+        const minScores = [
+            { menu: "MENU 1", score: "112.1506091" },
+            { menu: "MENU 2", score: "102.2978405" },
+            { menu: "MENU 3", score: "198.0787028" },
+            { menu: "MENU 4", score: "187.8334611" },
+            { menu: "MENU 5", score: "182.5045328" }
+        ];
+
         function searchStudent() {
-            const nisn = document.getElementById("nisnInput").value.trim();
-            if (database[nisn]) {
-                document.getElementById("studentName").innerText = database[nisn].name;
-                document.getElementById("studentNISN").innerText = nisn;
+            const nis = document.getElementById("nisInput").value.trim();
+            if (database[nis]) {
+                document.getElementById("studentName").innerText = database[nis].name;
+                document.getElementById("studentnis").innerText = nis;
 
                 let menuHTML = "";
-                database[nisn].menus.forEach(menu => {
+                database[nis].menus.forEach(menu => {
                     menuHTML += `<tr>
                                     <td>${menu.menu}</td>
                                     <td>${menu.score}</td>
@@ -2572,17 +2601,28 @@ menus: [
                 });
 
                 document.getElementById("menuData").innerHTML = menuHTML;
+
+                let minScoreHTML = "";
+                minScores.forEach(menu => {
+                    minScoreHTML += `<tr>
+                                        <td>${menu.menu}</td>
+                                        <td>${menu.score}</td>
+                                     </tr>`;
+                });
+
+                document.getElementById("minScoreData").innerHTML = minScoreHTML;
+
                 document.getElementById("searchBox").style.display = "none";
                 document.getElementById("resultBox").style.display = "block";
             } else {
-                alert("NISN not found!");
+                alert("nis not found!");
             }
         }
 
         function goBack() {
             document.getElementById("resultBox").style.display = "none";
             document.getElementById("searchBox").style.display = "block";
-            document.getElementById("nisnInput").value = "";
+            document.getElementById("nisInput").value = "";
         }
     </script>
 
